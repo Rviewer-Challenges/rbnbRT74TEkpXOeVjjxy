@@ -1,4 +1,4 @@
-package com.rumosoft.twittermirroring.ui.theme
+package com.rumosoft.library_components.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
