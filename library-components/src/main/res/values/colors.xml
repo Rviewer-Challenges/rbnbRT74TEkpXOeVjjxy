@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blue">@color/dodgerBlue</color>
+    <color name="black">@color/woodsmoke</color>
+    <color name="darkGray">@color/paleSky</color>
+    <color name="lightGray">@color/cadetBlue</color>
+    <color name="extraLightGray">@color/mystic</color>
+    <color name="extraExtraLightGray">@color/catskillWhite</color>
+
+    <color name="cadetBlue">#FFAAB8C2</color>
+    <color name="catskillWhite">#FFF5F8FA</color>
+    <color name="dodgerBlue">#FF1DA1F2</color>
+    <color name="mystic">#FFE1E8ED</color>
+    <color name="paleSky">#FF657786</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="woodsmoke">#FF14171A</color>
+</resources>

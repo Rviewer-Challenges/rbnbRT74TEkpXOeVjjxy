@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace 'com.rumosoft.feature_timeline'
-    compileSdk 32
+    compileSdk compile_sdk
 
     defaultConfig {
-        minSdk 26
-        targetSdk 32
+        minSdk min_sdk
+        targetSdk target_sdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"

@@ -1,10 +1,14 @@
 buildscript {
     ext {
+        compile_sdk = 32
+        target_sdk = 32
+        min_sdk = 27
         compose_version = "1.1.1"
         coroutine_version = "1.6.1"
         hilt_nav_compose = "1.0.0"
         hilt_version = "2.42"
         nav_compose = "2.5.0-rc01"
+        splash_version = "1.0.0-rc01"
         timber_version = "5.0.1"
         junit5_version = "5.8.2"
         mockk_version = "1.12.3"
