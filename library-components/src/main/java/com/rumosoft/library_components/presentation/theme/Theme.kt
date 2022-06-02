@@ -1,7 +1,10 @@
 package com.rumosoft.library_components.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Shapes
+import androidx.compose.material.Typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
@@ -43,4 +46,26 @@ fun TwitterMirroringTheme(
         shapes = Shapes,
         content = content
     )
+}
+
+object TwitterMirroringTheme {
+    val colors: Colors
+        @Composable
+        get() = MaterialTheme.colors
+
+    val extraColors: CustomColors
+        @Composable
+        get() = LocalColors.current
+
+    val typography: Typography
+        @Composable
+        get() = MaterialTheme.typography
+
+    val shapes: Shapes
+        @Composable
+        get() = MaterialTheme.shapes
+
+    val paddings: Paddings
+        @Composable
+        get() = LocalPaddings.current
 }
