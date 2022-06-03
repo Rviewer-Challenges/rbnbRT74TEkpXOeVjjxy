@@ -3,6 +3,7 @@ buildscript {
         compile_sdk = 32
         target_sdk = 32
         min_sdk = 27
+        coil_version = "2.1.0"
         compose_version = "1.1.1"
         coroutine_version = "1.6.1"
         hilt_nav_compose = "1.0.0"

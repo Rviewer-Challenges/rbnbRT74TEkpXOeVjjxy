@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="comments">Comments</string>
+    <string name="retweets">Retweets</string>
+    <string name="likes">Likes</string>
+    <string name="shares">Shares</string>
+</resources>

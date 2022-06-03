@@ -57,12 +57,12 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = helveticaNeue,
         fontWeight = FontWeight.Normal,
-        fontSize = 17.sp,
+        fontSize = 16.sp,
     ),
     body2 = TextStyle(
         fontFamily = helveticaNeue,
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp,
+        fontSize = 14.sp,
     ),
     button = TextStyle(
         fontFamily = helveticaNeue,
