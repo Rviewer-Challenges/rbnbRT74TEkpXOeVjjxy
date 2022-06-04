@@ -1,26 +1,15 @@
 package com.rumosoft.library_components.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.rumosoft.library_components.components.model.TweetAction
 import com.rumosoft.library_components.components.model.TweetActionComments
 import com.rumosoft.library_components.components.model.TweetActionLike
 import com.rumosoft.library_components.components.model.TweetActionRetweet
 import com.rumosoft.library_components.components.model.TweetActionShare
-import com.rumosoft.library_components.components.model.TweetActionWithValue
+import com.rumosoft.library_components.components.model.TweetActionsClick
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
@@ -29,52 +18,29 @@ fun TweetActionButtons(
     numRetweets: Int,
     numLikes: Int,
     modifier: Modifier = Modifier,
+    onActionsClick: TweetActionsClick,
 ) {
     Row(modifier = modifier.fillMaxWidth()) {
         ActionButton(
             action = TweetActionComments(numComments),
             modifier = Modifier.weight(1f),
+            onClick = onActionsClick::onCommentsClick,
         )
         ActionButton(
             action = TweetActionRetweet(numRetweets),
             modifier = Modifier.weight(1f),
+            onClick = onActionsClick::onRetweetsClick,
         )
         ActionButton(
             action = TweetActionLike(numLikes),
             modifier = Modifier.weight(1f),
+            onClick = onActionsClick::onLikesClick,
         )
         ActionButton(
             action = TweetActionShare(),
             modifier = Modifier.weight(1f),
+            onClick = onActionsClick::onShareClick,
         )
-    }
-}
-
-@Composable
-fun ActionButton(
-    action: TweetAction,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-) {
-    Row(
-        modifier = modifier
-            .height(40.dp)
-            .padding(horizontal = 11.dp)
-            .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            painter = painterResource(id = action.iconResource),
-            contentDescription = stringResource(id = action.description),
-            modifier = Modifier
-                .size(18.dp)
-        )
-        if (action is TweetActionWithValue) {
-            Text(
-                action.value.toString(),
-                modifier = Modifier.padding(start = 8.dp)
-            )
-        }
     }
 }
 
@@ -88,6 +54,12 @@ fun TweetActionButtonsPreview() {
             numLikes = 11,
             numRetweets = 22,
             numComments = 33,
+            onActionsClick = object : TweetActionsClick {
+                override fun onCommentsClick() {}
+                override fun onRetweetsClick() {}
+                override fun onLikesClick() {}
+                override fun onShareClick() {}
+            }
         )
     }
 }

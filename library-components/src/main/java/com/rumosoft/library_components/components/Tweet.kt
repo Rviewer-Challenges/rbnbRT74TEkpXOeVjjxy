@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.rumosoft.library_components.components.model.TweetActionsClick
 import com.rumosoft.library_components.components.sampledata.SampleTweetData.sampleTweet
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
@@ -23,6 +24,12 @@ fun Tweet(
     numRetweets: Int,
     numLikes: Int,
     verified: Boolean = false,
+    onActionsClick: TweetActionsClick = object : TweetActionsClick {
+        override fun onCommentsClick() {}
+        override fun onRetweetsClick() {}
+        override fun onLikesClick() {}
+        override fun onShareClick() {}
+    },
 ) {
     Row(
         modifier = Modifier
@@ -50,6 +57,7 @@ fun Tweet(
                 numComments = numComments,
                 numRetweets = numRetweets,
                 numLikes = numLikes,
+                onActionsClick = onActionsClick,
                 modifier = Modifier.align(Alignment.End)
             )
         }

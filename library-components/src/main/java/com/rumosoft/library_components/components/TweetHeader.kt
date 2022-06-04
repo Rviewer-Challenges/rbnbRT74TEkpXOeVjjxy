@@ -39,16 +39,7 @@ fun TweetHeader(
             .fillMaxWidth()
             .padding(end = TwitterMirroringTheme.paddings.medium)
     ) {
-        val headerText = buildAnnotatedString {
-            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                append(username)
-            }
-            if (showTick) {
-                append(" ")
-                appendInlineContent(id = TICK_IMAGE_ID)
-            }
-            append(" @$nickname ·$elapsedTime")
-        }
+        val headerText = getAnnotatedHeaderString(username, showTick, nickname, elapsedTime)
         val inlineContentMap = mapOf(
             TICK_IMAGE_ID to InlineTextContent(
                 Placeholder(20.sp, 20.sp, PlaceholderVerticalAlign.TextCenter)
@@ -66,6 +57,22 @@ fun TweetHeader(
             style = TwitterMirroringTheme.typography.body1,
         )
     }
+}
+
+internal fun getAnnotatedHeaderString(
+    username: String,
+    showTick: Boolean,
+    nickname: String,
+    elapsedTime: String
+) = buildAnnotatedString {
+    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+        append(username)
+    }
+    if (showTick) {
+        append(" ")
+        appendInlineContent(id = TICK_IMAGE_ID)
+    }
+    append(" @$nickname ·$elapsedTime")
 }
 
 @Preview(

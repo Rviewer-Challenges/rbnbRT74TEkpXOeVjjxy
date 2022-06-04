@@ -10,13 +10,15 @@ import androidx.compose.ui.unit.dp
 import com.rumosoft.library_components.components.sampledata.SampleTweetData
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
+const val MAX_TWEET_LENGTH = 280
+
 @Composable
 fun TweetContentText(
     message: String,
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = message.substring(0, 280),
+        text = if (message.length > MAX_TWEET_LENGTH) message.substring(0, MAX_TWEET_LENGTH) else message,
         style = TwitterMirroringTheme.typography.body1,
         modifier = modifier
             .padding(top = 2.dp, end = TwitterMirroringTheme.paddings.medium),
