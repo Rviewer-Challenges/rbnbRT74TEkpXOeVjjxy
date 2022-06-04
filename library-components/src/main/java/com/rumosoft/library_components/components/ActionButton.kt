@@ -37,13 +37,15 @@ fun ActionButton(
         Icon(
             painter = painterResource(id = action.iconResource),
             contentDescription = stringResource(id = action.description),
+            tint = TwitterMirroringTheme.colors.onBackground,
             modifier = Modifier
-                .size(18.dp)
+                .size(18.dp),
         )
         if (action is TweetActionWithValue) {
             Text(
                 action.value.toString(),
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier.padding(start = 8.dp),
+                color = TwitterMirroringTheme.colors.onBackground,
             )
         }
     }

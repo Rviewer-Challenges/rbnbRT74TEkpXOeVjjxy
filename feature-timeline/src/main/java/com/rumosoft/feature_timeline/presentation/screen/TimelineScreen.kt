@@ -1,29 +1,33 @@
 package com.rumosoft.feature_timeline.presentation.screen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.rumosoft.feature_timeline.presentation.screen.state.BuildUI
+import com.rumosoft.feature_timeline.presentation.viewmodel.TimelineViewModel
+import com.rumosoft.feature_timeline.presentation.viewmodel.state.TimelineState
 
 @Composable
-fun TimelineRoute() {
-    TimelineScreen()
+fun TimelineRoute(
+    viewModel: TimelineViewModel = hiltViewModel(),
+) {
+    LaunchedEffect(Unit) {
+        viewModel.retrieveTimeline()
+    }
+    val uiState by viewModel.uiState.collectAsState()
+    TimelineScreen(uiState)
 }
 
 @Composable
-fun TimelineScreen() {
-    Row(
-        modifier = Modifier.fillMaxSize(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = "Timeline",
-            style = TwitterMirroringTheme.typography.h1
-        )
+fun TimelineScreen(
+    uiState: TimelineState
+) {
+    Surface(modifier = Modifier.fillMaxSize()) {
+        uiState.BuildUI()
     }
 }

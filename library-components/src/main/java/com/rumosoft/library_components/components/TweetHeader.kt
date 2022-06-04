@@ -59,6 +59,7 @@ fun TweetHeader(
     }
 }
 
+@Composable
 internal fun getAnnotatedHeaderString(
     username: String,
     showTick: Boolean,
@@ -72,7 +73,9 @@ internal fun getAnnotatedHeaderString(
         append(" ")
         appendInlineContent(id = TICK_IMAGE_ID)
     }
-    append(" @$nickname ·$elapsedTime")
+    withStyle(style = SpanStyle(TwitterMirroringTheme.colors.onBackground)) {
+        append(" @$nickname ·$elapsedTime")
+    }
 }
 
 @Preview(

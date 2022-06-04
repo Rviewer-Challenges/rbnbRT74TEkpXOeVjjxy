@@ -14,7 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.compose.rememberNavController
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 import com.rumosoft.twittermirroring.presentation.navigation.NavigationHost
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
