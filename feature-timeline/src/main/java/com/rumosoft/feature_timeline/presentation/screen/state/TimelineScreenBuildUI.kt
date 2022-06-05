@@ -9,6 +9,7 @@ import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -18,6 +19,8 @@ import com.rumosoft.feature_timeline.presentation.viewmodel.state.Loading
 import com.rumosoft.feature_timeline.presentation.viewmodel.state.Ready
 import com.rumosoft.feature_timeline.presentation.viewmodel.state.TimelineState
 import com.rumosoft.library_components.components.Tweet
+import com.rumosoft.library_components.components.model.TweetActionsClick
+import com.rumosoft.library_components.infrastructure.toast
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
@@ -45,6 +48,7 @@ private fun TimelineLoading() {
 private fun TimelineReady(
     uiState: Ready,
 ) {
+    val context = LocalContext.current
     LazyColumn {
         items(items = uiState.tweets, itemContent = { tweet ->
             Tweet(
@@ -57,6 +61,12 @@ private fun TimelineReady(
                 numRetweets = tweet.numRetweets,
                 numLikes = tweet.numLikes,
                 verified = tweet.verified,
+                onActionsClick = object : TweetActionsClick {
+                    override fun onCommentsClick() { context.toast("Comments click") }
+                    override fun onRetweetsClick() { context.toast("Retweets click") }
+                    override fun onLikesClick() { context.toast("Likes click") }
+                    override fun onShareClick() { context.toast("Share click") }
+                },
             )
             Divider(color = TwitterMirroringTheme.colors.secondaryVariant, thickness = 1.dp)
         })

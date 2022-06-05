@@ -7,7 +7,10 @@ import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
     primary = Black,
@@ -73,3 +76,5 @@ object TwitterMirroringTheme {
         @Composable
         get() = LocalPaddings.current
 }
+
+object ClearRippleTheme : RippleTheme { @Composable override fun defaultColor(): Color = Color.Transparent @Composable override fun rippleAlpha() = RippleAlpha( draggedAlpha = 0.0f, focusedAlpha = 0.0f, hoveredAlpha = 0.0f, pressedAlpha = 0.0f, ) }
