@@ -46,9 +46,6 @@ private fun TimelineReady(
     uiState: Ready,
 ) {
     LazyColumn {
-        item {
-            Divider(color = TwitterMirroringTheme.colors.secondaryVariant, thickness = 1.dp)
-        }
         items(items = uiState.tweets, itemContent = { tweet ->
             Tweet(
                 profileImageUrl = tweet.profileImageUrl,
