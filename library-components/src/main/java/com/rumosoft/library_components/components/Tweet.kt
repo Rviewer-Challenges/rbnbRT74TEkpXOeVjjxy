@@ -20,9 +20,9 @@ fun Tweet(
     nickname: String,
     message: String,
     elapsedTime: String,
-    numComments: Int,
-    numRetweets: Int,
-    numLikes: Int,
+    numComments: String,
+    numRetweets: String,
+    numLikes: String,
     verified: Boolean = false,
     onActionsClick: TweetActionsClick = object : TweetActionsClick {
         override fun onCommentsClick() {}

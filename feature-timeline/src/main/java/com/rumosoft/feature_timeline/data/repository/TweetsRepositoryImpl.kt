@@ -14,14 +14,14 @@ class TweetsRepositoryImpl @Inject constructor(
         return withContext(dispatcher) {
             listOf(
                 Tweet(
-                    username = "Jep",
-                    nickname = "jeprubio",
-                    profileImageUrl = "https://via.placeholder.com/50/0000FF/FFFFFF?Text=Jep",
-                    message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt, metus et aliquam interdum, odio lacus commodo mauris, nec tristique velit eros sit amet tortor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin neque risus, mollis eu scelerisque ac, tincidunt id elit. Etiam condimentum massa sed felis congue blandit. Pellentesque suscipit erat posuere gravida elementum. Donec at consequat lectus. Quisque sed lectus placerat, bibendum orci ut, porta leo. Donec sed nulla sapien. Pellentesque ante nibh, vestibulum sit amet dictum id, iaculis ut sapien. Donec eleifend, nisl et convallis bibendum, ligula purus iaculis felis, a luctus neque ex at ex. Integer luctus sapien non ante egestas, sit amet gravida odio congue. Fusce nec lacus lorem.",
-                    numComments = 3,
-                    numRetweets = 2,
-                    numLikes = 1,
-                    elapsedTime = "1m",
+                    username = "Twitter",
+                    nickname = "Twitter",
+                    profileImageUrl = "https://pbs.twimg.com/profile_images/1354481096742768640/axJjcdix_400x400.jpg",
+                    message = "You good?",
+                    numComments = 62900,
+                    numRetweets = 92600,
+                    numLikes = 494600,
+                    elapsedTime = "Mar 30",
                     verified = true
                 )
             )

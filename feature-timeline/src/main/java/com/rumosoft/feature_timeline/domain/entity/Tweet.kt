@@ -5,9 +5,9 @@ data class Tweet(
     val nickname: String,
     val profileImageUrl: String,
     val message: String,
-    val numComments: Int,
-    val numRetweets: Int,
-    val numLikes: Int,
+    val numComments: Long,
+    val numRetweets: Long,
+    val numLikes: Long,
     val elapsedTime: String,
     val verified: Boolean,
 )

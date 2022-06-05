@@ -1,10 +1,13 @@
 package com.rumosoft.library_components.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.rumosoft.library_components.components.model.TweetActionComments
 import com.rumosoft.library_components.components.model.TweetActionLike
 import com.rumosoft.library_components.components.model.TweetActionRetweet
@@ -14,13 +17,17 @@ import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
 fun TweetActionButtons(
-    numComments: Int,
-    numRetweets: Int,
-    numLikes: Int,
+    numComments: String,
+    numRetweets: String,
+    numLikes: String,
     modifier: Modifier = Modifier,
     onActionsClick: TweetActionsClick,
 ) {
-    Row(modifier = modifier.fillMaxWidth()) {
+    Row(
+        modifier = modifier.fillMaxWidth()
+            .padding(horizontal = 11.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         ActionButton(
             action = TweetActionComments(numComments),
             modifier = Modifier.weight(1f),
@@ -51,9 +58,9 @@ fun TweetActionButtons(
 fun TweetActionButtonsPreview() {
     TwitterMirroringTheme {
         TweetActionButtons(
-            numLikes = 11,
-            numRetweets = 22,
-            numComments = 33,
+            numLikes = "11",
+            numRetweets = "22",
+            numComments = "33",
             onActionsClick = object : TweetActionsClick {
                 override fun onCommentsClick() {}
                 override fun onRetweetsClick() {}

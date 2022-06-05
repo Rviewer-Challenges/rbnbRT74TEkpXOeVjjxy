@@ -30,7 +30,6 @@ fun ActionButton(
     Row(
         modifier = modifier
             .height(40.dp)
-            .padding(horizontal = 11.dp)
             .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -43,7 +42,8 @@ fun ActionButton(
         )
         if (action is TweetActionWithValue) {
             Text(
-                action.value.toString(),
+                text = action.value,
+                style = TwitterMirroringTheme.typography.caption,
                 modifier = Modifier.padding(start = 8.dp),
                 color = TwitterMirroringTheme.colors.onBackground,
             )
@@ -59,7 +59,7 @@ fun ActionButtonPreview() {
     TwitterMirroringTheme {
         val numComments = remember { Random.nextInt(1, 100) }
         ActionButton(
-            action = TweetActionComments(numComments),
+            action = TweetActionComments(numComments.toString()),
         )
     }
 }

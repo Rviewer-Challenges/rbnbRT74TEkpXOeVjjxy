@@ -32,9 +32,9 @@ internal class TweetActionButtonsKtTest {
             likesContentDescription = stringResource(R.string.comments)
             shareContentDescription = stringResource(R.string.comments)
             TweetActionButtons(
-                numComments = comments,
-                numRetweets = retweets,
-                numLikes = likes,
+                numComments = comments.toString(),
+                numRetweets = retweets.toString(),
+                numLikes = likes.toString(),
                 onActionsClick = actionsClick
             )
         }

@@ -24,7 +24,7 @@ internal class ActionButtonKtTest {
         val numComments = Random.nextInt(1, 100)
 
         composeTestRule.setContent {
-            ActionButton(TweetActionComments(numComments))
+            ActionButton(TweetActionComments(numComments.toString()))
         }
 
         composeTestRule.onNodeWithText(numComments.toString())
@@ -33,7 +33,7 @@ internal class ActionButtonKtTest {
 
     @Test
     fun actionButton_callsLambdaOnClick() {
-        val numComments = Random.nextInt(1, 100)
+        val numComments = Random.nextInt(1, 100).toString()
         val onClickLambda: () -> Unit = mockk<() -> Unit>().also {
             justRun { it() }
         }
