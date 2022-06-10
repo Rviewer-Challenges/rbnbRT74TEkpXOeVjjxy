@@ -9,7 +9,6 @@ live edit feature, as it's not something to be published I thought there should 
 The apk of this app can be downloaded from:
 https://drive.google.com/file/d/1dYobyo4ttoL7mMV6_-SFAoMcRXsXYvh2/view?usp=sharing
 
-
 ## Modules
 I tried to create different modules so that the app is about twitter-mirroring and feature-timeline
 is just a feature of it so there could be extra features done.

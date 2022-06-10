@@ -14,5 +14,6 @@ object SampleScreenTweetData {
             numLikes = "494.6K",
             elapsedTime = "3h",
             verified = true,
+            images = emptyList(),
         )
 }

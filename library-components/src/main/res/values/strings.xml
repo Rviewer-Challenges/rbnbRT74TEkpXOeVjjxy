@@ -6,4 +6,6 @@
     <string name="shares">Shares</string>
     <string name="twitter">Twitter</string>
     <string name="tweet_text">Tweet text</string>
+    <string name="tweet_images">Tweet images</string>
+    <string name="tweet_image">Tweet image</string>
 </resources>

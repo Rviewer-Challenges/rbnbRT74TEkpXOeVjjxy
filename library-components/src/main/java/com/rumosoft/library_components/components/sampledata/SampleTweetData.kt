@@ -13,5 +13,6 @@ object SampleTweetData {
             numRetweets = "92.6K",
             numLikes = "494.6K",
             elapsedTime = "3h",
+            images = emptyList(),
         )
 }

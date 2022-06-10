@@ -26,6 +26,7 @@ fun Tweet(
     numRetweets: String,
     numLikes: String,
     verified: Boolean = false,
+    images: List<String> = emptyList(),
     onActionsClick: TweetActionsClick = object : TweetActionsClick {
         override fun onCommentsClick() {}
         override fun onRetweetsClick() {}
@@ -52,9 +53,10 @@ fun Tweet(
                 showTick = verified,
                 modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium)
             )
-            TweetContentText(
+            TweetContent(
                 message = message,
                 modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium),
+                images = images,
                 onUrlClick = { url ->
                     context.openUrl(url)
                 },

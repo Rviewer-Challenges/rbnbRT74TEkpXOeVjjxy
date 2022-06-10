@@ -66,6 +66,7 @@ private fun TimelineReady(
                 numRetweets = tweet.numRetweets,
                 numLikes = tweet.numLikes,
                 verified = tweet.verified,
+                images = tweet.images,
                 onActionsClick = object : TweetActionsClick {
                     override fun onCommentsClick() { context.toast("Comments click") }
                     override fun onRetweetsClick() { context.toast("Retweets click") }

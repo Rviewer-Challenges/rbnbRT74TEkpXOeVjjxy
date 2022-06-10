@@ -27,10 +27,21 @@ private const val URL_REGEX =
 private const val URL_TAG = "urlTag"
 
 @Composable
-fun TweetContentText(
+fun TweetContent(
     message: String,
+    images: List<String>,
     modifier: Modifier = Modifier,
     onUrlClick: (url: String) -> Unit = {}
+) {
+    TweetContentText(message, modifier, onUrlClick)
+    TweetContentImages(images)
+}
+
+@Composable
+private fun TweetContentText(
+    message: String,
+    modifier: Modifier,
+    onUrlClick: (url: String) -> Unit
 ) {
     val bodyString = getAnnotatedBodyString(message = message)
     val textTweetContentDescription = stringResource(R.string.tweet_text)
@@ -67,7 +78,7 @@ internal fun getAnnotatedBodyString(
     if (toHighlight.isNotEmpty()) {
         notHighlights.zip(toHighlight + "") { message, highlight ->
             append(message)
-            addHighlightedChunk(highlight)
+            AddHighlightedChunk(highlight)
         }
     } else {
         append(substring)
@@ -75,18 +86,15 @@ internal fun getAnnotatedBodyString(
 }
 
 @Composable
-private fun AnnotatedString.Builder.addHighlightedChunk(highlight: String) {
-    if (highlight.isNotEmpty()) {
-        if (isUrl(highlight)) {
-            pushStringAnnotation(
-                tag = URL_TAG,
-                annotation = highlight
-            )
-            highlightText(highlight)
-            pop()
-        } else {
-            highlightText(highlight)
-        }
+private fun getElementsToHighlight(
+    toHighlightRegex: Regex,
+    substring: String
+) = toHighlightRegex.findAll(substring).map { it.value }.toList()
+
+@Composable
+private fun AnnotatedString.Builder.HighlightText(highlight: String) {
+    withStyle(style = SpanStyle(TwitterMirroringTheme.extraColors.blue)) {
+        append(highlight)
     }
 }
 
@@ -97,20 +105,25 @@ private fun getNotHighlightedElements(
 ) = substring.split(toHighlightRegex)
 
 @Composable
-private fun getElementsToHighlight(
-    toHighlightRegex: Regex,
-    substring: String
-) = toHighlightRegex.findAll(substring).map { it.value }.toList()
-
-@Composable
-private fun AnnotatedString.Builder.highlightText(highlight: String) {
-    withStyle(style = SpanStyle(TwitterMirroringTheme.extraColors.blue)) {
-        append(highlight)
+private fun AnnotatedString.Builder.AddHighlightedChunk(highlight: String) {
+    if (highlight.isNotEmpty()) {
+        if (isUrl(highlight)) {
+            pushStringAnnotation(
+                tag = URL_TAG,
+                annotation = highlight
+            )
+            HighlightText(stripWebPrefix(highlight))
+            pop()
+        } else {
+            HighlightText(highlight)
+        }
     }
 }
 
-@Composable
 private fun isUrl(highlight: String) = URL_REGEX.toRegex().matches(highlight)
+
+private fun stripWebPrefix(highlight: String) =
+    highlight.replace("http[s]?://".toRegex(), "")
 
 @Preview(
     showBackground = true
@@ -119,6 +132,23 @@ private fun isUrl(highlight: String) = URL_REGEX.toRegex().matches(highlight)
 fun TweetContentTextPreview() {
     val sampleTweet = remember { SampleTweetData.sampleTweet() }
     TwitterMirroringTheme {
-        TweetContentText(sampleTweet.message)
+        TweetContent(
+            message = sampleTweet.message,
+            images = sampleTweet.images
+        )
+    }
+}
+
+@Preview(
+    showBackground = true
+)
+@Composable
+fun TweetContentOneImagePreview() {
+    val sampleTweet = remember { SampleTweetData.sampleTweet() }
+    TwitterMirroringTheme {
+        TweetContent(
+            message = sampleTweet.message,
+            images = listOf("imageUrl")
+        )
     }
 }

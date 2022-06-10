@@ -34,8 +34,6 @@ internal class TweetHeaderKtTest {
             )
         }
 
-        Thread.sleep(5_000)
-
         composeTestRule.onNodeWithText(headerString.toString())
             .assertIsDisplayed()
     }

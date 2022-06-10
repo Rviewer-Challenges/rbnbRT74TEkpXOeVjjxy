@@ -14,11 +14,13 @@ data class ScreenTweet(
     val numLikes: String,
     val elapsedTime: String,
     val verified: Boolean,
+    val images: List<String>,
 )
 
 fun Tweet.toScreenTweet(): ScreenTweet {
-    fun getFormatedNumber(count: Long): String {
-        if (count < 1000) return "" + count
+    fun getFormattedNumber(count: Long): String {
+        if (count <= 0) return ""
+        if (count < 1000) return count.toString()
         val exp = (ln(count.toDouble()) / ln(1000.0)).toInt()
         return String.format("%.1f %c", count / 1000.0.pow(exp.toDouble()), "kMGTPE"[exp - 1])
     }
@@ -28,10 +30,11 @@ fun Tweet.toScreenTweet(): ScreenTweet {
         nickname = nickname,
         profileImageUrl = profileImageUrl,
         message = message,
-        numComments = getFormatedNumber(numComments),
-        numRetweets = getFormatedNumber(numRetweets),
-        numLikes = getFormatedNumber(numLikes),
+        numComments = getFormattedNumber(numComments),
+        numRetweets = getFormattedNumber(numRetweets),
+        numLikes = getFormattedNumber(numLikes),
         elapsedTime = elapsedTime,
-        verified = verified
+        verified = verified,
+        images = images,
     )
 }

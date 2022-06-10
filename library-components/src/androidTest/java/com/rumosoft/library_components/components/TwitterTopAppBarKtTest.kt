@@ -21,8 +21,6 @@ internal class TwitterTopAppBarKtTest {
             TwitterTopAppBar()
         }
 
-        Thread.sleep(5_000)
-
         composeTestRule.onNodeWithContentDescription(titleContentDescription)
             .assertIsDisplayed()
     }
