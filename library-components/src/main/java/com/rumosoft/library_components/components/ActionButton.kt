@@ -46,7 +46,7 @@ fun ActionButton(
                 modifier = Modifier
                     .size(18.dp),
             )
-            if (action is TweetActionWithValue) {
+            if (action is TweetActionWithValue && action.value.isNotEmpty()) {
                 Text(
                     text = action.value,
                     style = TwitterMirroringTheme.typography.caption,
