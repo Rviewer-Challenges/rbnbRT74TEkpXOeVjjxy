@@ -1,6 +1,8 @@
 # Twitter Mirroring
 
 Simple app that represents a fake Twitter timeline.
+By the way, I've used Android Studio Electric Eel for this project in order to use the 
+live edit feature, as it's not something to be published I thought there should be no problem.
 
 ## APK
 
@@ -28,5 +30,5 @@ is used for the url matches.
 
 ## Testing
 
-As the purpose of this pet project is about UI I've done tests in the components of library-components 
-and I plan to add screenshot testing with shot later on.
+As the purpose of this pet project is about UI I've done tests in the components of library-components
+and in feature-timeline. I plan to add screenshot testing with shot later on.

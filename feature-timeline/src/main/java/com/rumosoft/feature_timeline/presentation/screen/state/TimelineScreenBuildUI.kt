@@ -49,7 +49,12 @@ private fun TimelineReady(
     uiState: Ready,
 ) {
     val context = LocalContext.current
-    LazyColumn {
+    val timelineContentDescription = stringResource(id = R.string.timeline)
+    LazyColumn(
+        modifier = Modifier.semantics {
+            contentDescription = timelineContentDescription
+        }
+    ) {
         items(items = uiState.tweets, itemContent = { tweet ->
             Tweet(
                 profileImageUrl = tweet.profileImageUrl,
