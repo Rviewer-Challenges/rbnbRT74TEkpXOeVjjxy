@@ -8,9 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.rumosoft.library_components.components.model.TweetActionsClick
 import com.rumosoft.library_components.components.sampledata.SampleTweetData.sampleTweet
+import com.rumosoft.library_components.infrastructure.openUrl
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
@@ -31,6 +33,7 @@ fun Tweet(
         override fun onShareClick() {}
     },
 ) {
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -51,7 +54,10 @@ fun Tweet(
             )
             TweetContentText(
                 message = message,
-                modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium)
+                modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium),
+                onUrlClick = { url ->
+                    context.openUrl(url)
+                },
             )
             TweetActionButtons(
                 numComments = numComments,
