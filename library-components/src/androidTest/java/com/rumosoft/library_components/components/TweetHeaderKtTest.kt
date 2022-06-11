@@ -4,10 +4,11 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.text.AnnotatedString
+import com.karumi.shot.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
 
-internal class TweetHeaderKtTest {
+internal class TweetHeaderKtTest: ScreenshotTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -36,5 +37,6 @@ internal class TweetHeaderKtTest {
 
         composeTestRule.onNodeWithText(headerString.toString())
             .assertIsDisplayed()
+        compareScreenshot(composeTestRule)
     }
 }

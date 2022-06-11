@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.karumi.shot.ScreenshotTest
 import com.rumosoft.library_components.R
 import com.rumosoft.library_components.components.model.TweetActionComments
 import io.mockk.justRun
@@ -15,7 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import kotlin.random.Random
 
-internal class ActionButtonKtTest {
+internal class ActionButtonKtTest: ScreenshotTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -29,6 +30,7 @@ internal class ActionButtonKtTest {
 
         composeTestRule.onNodeWithText(numComments.toString())
             .assertIsDisplayed()
+        compareScreenshot(composeTestRule)
     }
 
     @Test

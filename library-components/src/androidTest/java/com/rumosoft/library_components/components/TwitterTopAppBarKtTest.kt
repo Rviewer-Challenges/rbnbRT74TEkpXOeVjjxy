@@ -4,11 +4,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import com.karumi.shot.ScreenshotTest
 import com.rumosoft.library_components.R
 import org.junit.Rule
 import org.junit.Test
 
-internal class TwitterTopAppBarKtTest {
+internal class TwitterTopAppBarKtTest: ScreenshotTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -23,5 +24,6 @@ internal class TwitterTopAppBarKtTest {
 
         composeTestRule.onNodeWithContentDescription(titleContentDescription)
             .assertIsDisplayed()
+        compareScreenshot(composeTestRule)
     }
 }

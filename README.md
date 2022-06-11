@@ -29,5 +29,13 @@ is used for the url matches.
 
 ## Testing
 
-As the purpose of this pet project is about UI I've done tests in the components of library-components
-and in feature-timeline. I plan to add screenshot testing with shot later on.
+As the purpose of this pet project is about UI I've done UI tests in the components of library-components
+and in feature-timeline.
+
+To run the unit tests: `./gradlew lint testDebug --continue`
+
+To run the UI tests: `./gradlew connectedDebugAndroidTest`
+
+To record the screenshots test: `./gradlew executeScreenshotTests -Precord`
+
+To execute the screenshots test: `./gradlew executeScreenshotTests`

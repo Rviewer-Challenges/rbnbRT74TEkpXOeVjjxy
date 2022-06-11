@@ -27,7 +27,7 @@ class TweetsRepositoryImpl @Inject constructor(
                 Tweet(
                     username = "Brais Moure",
                     nickname = "MoureDev",
-                    profileImageUrl = "https://pbs.twimg.com/profile_images/1532420458087337993/gzyQBPsL_200x200.jpg",
+                    profileImageUrl = "https://pbs.twimg.com/profile_images/1534960134937530376/8ty6kbOF_200x200.jpg",
                     message = "Mañana hay concierto con @_nasch_ y @powerhdeleon \uD83E\uDD18\n" +
                             "\n" +
                             "Enlace al vídeo y horario:\n" +

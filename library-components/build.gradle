@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'shot'
 }
 
 android {
@@ -10,7 +11,8 @@ android {
         minSdk min_sdk
         targetSdk target_sdk
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testApplicationId "com.rumosoft.twittermirrorintest"
+        testInstrumentationRunner "com.karumi.shot.ShotTestRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
@@ -53,4 +55,8 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     androidTestImplementation("io.mockk:mockk-android:$mockk_version")
+}
+
+shot {
+    applicationId = "com.rumosoft.twittermirrorintest"
 }

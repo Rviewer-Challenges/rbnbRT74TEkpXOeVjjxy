@@ -1,5 +1,6 @@
 package com.rumosoft.library_components.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
@@ -37,8 +38,10 @@ fun TweetContent(
     modifier: Modifier = Modifier,
     onHighlightedTextClick: (String, String) -> Unit = { _, _ -> },
 ) {
-    TweetContentText(message, modifier, onHighlightedTextClick)
-    TweetContentImages(images)
+    Column {
+        TweetContentText(message, modifier, onHighlightedTextClick)
+        TweetContentImages(images)
+    }
 }
 
 @Composable

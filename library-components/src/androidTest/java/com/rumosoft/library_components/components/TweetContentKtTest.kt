@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.karumi.shot.ScreenshotTest
 import com.rumosoft.library_components.R
 import io.mockk.justRun
 import io.mockk.mockk
@@ -13,7 +14,7 @@ import io.mockk.verify
 import org.junit.Rule
 import org.junit.Test
 
-internal class TweetContentKtTest {
+internal class TweetContentKtTest : ScreenshotTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -30,6 +31,7 @@ internal class TweetContentKtTest {
 
         composeTestRule.onNodeWithText(message)
             .assertIsDisplayed()
+        compareScreenshot(composeTestRule)
     }
 
     @Test
@@ -46,15 +48,17 @@ internal class TweetContentKtTest {
 
         composeTestRule.onNodeWithText(message)
             .assertDoesNotExist()
+        compareScreenshot(composeTestRule)
     }
 
     @Test
     fun tweetClickUrl_invokesHighlightTextClickListener() {
         val url = "https://www.google.es"
         val tag = "urlTag"
-        val onHighlightedTextClick: (String, String) -> Unit = mockk<(String, String) -> Unit>().also {
-            justRun { it(url, tag) }
-        }
+        val onHighlightedTextClick: (String, String) -> Unit =
+            mockk<(String, String) -> Unit>().also {
+                justRun { it(url, tag) }
+            }
 
         composeTestRule.setContent {
             TweetContent(
@@ -67,15 +71,17 @@ internal class TweetContentKtTest {
         composeTestRule.onNodeWithContentDescription("Tweet text").performClick()
 
         verify { onHighlightedTextClick(url, tag) }
+        compareScreenshot(composeTestRule)
     }
 
     @Test
     fun tweetClickMention_invokesHighlightTextClickListener() {
         val mention = "@whatever"
         val tag = "mentionTag"
-        val onHighlightedTextClick: (String, String) -> Unit = mockk<(String, String) -> Unit>().also {
-            justRun { it(mention, tag) }
-        }
+        val onHighlightedTextClick: (String, String) -> Unit =
+            mockk<(String, String) -> Unit>().also {
+                justRun { it(mention, tag) }
+            }
         lateinit var contentDescription: String
 
         composeTestRule.setContent {
@@ -90,15 +96,17 @@ internal class TweetContentKtTest {
         composeTestRule.onNodeWithContentDescription(contentDescription).performClick()
 
         verify { onHighlightedTextClick(mention, tag) }
+        compareScreenshot(composeTestRule)
     }
 
     @Test
     fun tweetClickHash_invokesHighlightTextClickListener() {
         val hashtag = "#whatever"
         val tag = "hashtagTag"
-        val onHighlightedTextClick: (String, String) -> Unit = mockk<(String, String) -> Unit>().also {
-            justRun { it(hashtag, tag) }
-        }
+        val onHighlightedTextClick: (String, String) -> Unit =
+            mockk<(String, String) -> Unit>().also {
+                justRun { it(hashtag, tag) }
+            }
         lateinit var contentDescription: String
 
         composeTestRule.setContent {
@@ -113,6 +121,7 @@ internal class TweetContentKtTest {
         composeTestRule.onNodeWithContentDescription(contentDescription).performClick()
 
         verify { onHighlightedTextClick(hashtag, tag) }
+        compareScreenshot(composeTestRule)
     }
 
     @Test
@@ -129,5 +138,54 @@ internal class TweetContentKtTest {
         }
 
         composeTestRule.onNodeWithContentDescription(contentDescription).assertIsDisplayed()
+        compareScreenshot(composeTestRule)
+    }
+
+    @Test
+    fun tweetWithOneImage_testScreenshot() {
+        composeTestRule.setContent {
+            TweetContent(
+                message = "1 image",
+                images = (1..1).map { "image: $it" },
+            )
+        }
+
+        compareScreenshot(composeTestRule)
+    }
+
+    @Test
+    fun tweetWithTwoImages_testScreenshot() {
+        composeTestRule.setContent {
+            TweetContent(
+                message = "2 images",
+                images = (1..2).map { "image: $it" },
+            )
+        }
+
+        compareScreenshot(composeTestRule)
+    }
+
+    @Test
+    fun tweetWithThreeImages_testScreenshot() {
+        composeTestRule.setContent {
+            TweetContent(
+                message = "3 images",
+                images = (1..3).map { "image: $it" },
+            )
+        }
+
+        compareScreenshot(composeTestRule)
+    }
+
+    @Test
+    fun tweetWithFourImages_testScreenshot() {
+        composeTestRule.setContent {
+            TweetContent(
+                message = "4 images",
+                images = (1..4).map { "image: $it" },
+            )
+        }
+
+        compareScreenshot(composeTestRule)
     }
 }

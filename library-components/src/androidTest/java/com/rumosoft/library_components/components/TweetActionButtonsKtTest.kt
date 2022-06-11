@@ -4,13 +4,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
+import com.karumi.shot.ScreenshotTest
 import com.rumosoft.library_components.R
 import com.rumosoft.library_components.components.model.TweetActionsClick
 import org.junit.Rule
 import org.junit.Test
 import kotlin.random.Random
 
-internal class TweetActionButtonsKtTest {
+internal class TweetActionButtonsKtTest: ScreenshotTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -47,6 +48,7 @@ internal class TweetActionButtonsKtTest {
             .assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription(shareContentDescription)
             .assertIsDisplayed()
+        compareScreenshot(composeTestRule)
     }
 
     private fun emptyActionsClick() = object : TweetActionsClick {
