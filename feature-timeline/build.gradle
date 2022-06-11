@@ -35,6 +35,14 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion '1.1.1'
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests {
+            all {
+                useJUnitPlatform()
+            }
+        }
+    }
 }
 
 dependencies {
@@ -55,7 +63,10 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_nav_compose"
 
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation("org.junit.jupiter:junit-jupiter:$junit5_version")
+    testImplementation("io.mockk:mockk:$mockk_version")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_version")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
