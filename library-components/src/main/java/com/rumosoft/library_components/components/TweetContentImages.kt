@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -54,6 +55,7 @@ fun TweetContentImages(images: List<String>) {
 fun OneImageTweetLayout(imageUrl: String) {
     AsyncImage(
         model = imageUrl,
+        error = painterResource(id = R.drawable.twitter_logo),
         contentDescription = stringResource(id = R.string.tweet_image),
         contentScale = ContentScale.FillWidth,
         modifier = Modifier
@@ -118,6 +120,7 @@ private fun OneImageColumn(
     val imageContentDescription = stringResource(id = R.string.tweet_image)
     AsyncImage(
         model = images[0],
+        error = painterResource(id = R.drawable.twitter_logo),
         contentDescription = imageContentDescription,
         contentScale = ContentScale.Crop,
         modifier = modifier
@@ -138,6 +141,7 @@ private fun TwoImagesColumn(
     ) {
         AsyncImage(
             model = images[0],
+            error = painterResource(id = R.drawable.twitter_logo),
             contentDescription = imageContentDescription,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -147,6 +151,7 @@ private fun TwoImagesColumn(
         Spacer(Modifier.height(IMAGE_SEPARATION_DP.dp))
         AsyncImage(
             model = images[1],
+            error = painterResource(id = R.drawable.twitter_logo),
             contentDescription = imageContentDescription,
             contentScale = ContentScale.Crop,
             modifier = Modifier
