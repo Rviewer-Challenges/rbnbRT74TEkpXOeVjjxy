@@ -1,5 +1,6 @@
 package com.rumosoft.feature_timeline.presentation.screen.state
 
+import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,9 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import coil.ImageLoader
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import com.rumosoft.feature_timeline.R
 import com.rumosoft.feature_timeline.presentation.viewmodel.state.PicturesLoading
 import com.rumosoft.feature_timeline.presentation.viewmodel.state.PicturesReady
@@ -48,6 +53,16 @@ private fun PicturesLoading() {
 private fun PicturesReady(
     uiState: PicturesReady,
 ) {
+    val context = LocalContext.current
+    val imageLoader = ImageLoader.Builder(context)
+        .components {
+            if (Build.VERSION.SDK_INT >= 28) {
+                add(ImageDecoderDecoder.Factory())
+            } else {
+                add(GifDecoder.Factory())
+            }
+        }.build()
+
     Box(
         contentAlignment = Alignment.BottomCenter,
         modifier = Modifier.fillMaxSize(),
@@ -60,6 +75,7 @@ private fun PicturesReady(
                 image = uiState.tweet.images.first(),
                 contentDescription = stringResource(id = com.rumosoft.library_components.R.string.tweet_image),
                 contentScale = ContentScale.FillWidth,
+                imageLoader = imageLoader,
                 modifier = Modifier.fillMaxWidth(),
                 onPictureSelected = { },
             )
