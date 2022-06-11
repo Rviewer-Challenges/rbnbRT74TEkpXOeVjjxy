@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 data class CustomColors(
     val blue: Color = Blue,
     val black: Color = Black,
+    val white: Color = White,
     val darkGray: Color = DarkGray,
     val lightGray: Color = LightGray,
     val extraLightGray: Color = ExtraLightGray,

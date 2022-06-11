@@ -16,6 +16,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rumosoft.library_components.R
+import com.rumosoft.library_components.components.model.ImageUI
 import com.rumosoft.library_components.components.sampledata.SampleTweetData
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
@@ -34,7 +35,7 @@ private const val HASHTAG_TAG = "hashtagTag"
 @Composable
 fun TweetContent(
     message: String,
-    images: List<String>,
+    images: List<ImageUI>,
     modifier: Modifier = Modifier,
     onHighlightedTextClick: (String, String) -> Unit = { _, _ -> },
 ) {

@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.rumosoft.library_components.components.model.ImageUI
 import com.rumosoft.library_components.components.model.TweetActionsClick
 import com.rumosoft.library_components.components.sampledata.SampleTweetData.sampleTweet
 import com.rumosoft.library_components.infrastructure.openUrl
@@ -26,7 +27,7 @@ fun Tweet(
     numRetweets: String,
     numLikes: String,
     verified: Boolean = false,
-    images: List<String> = emptyList(),
+    images: List<ImageUI> = emptyList(),
     onActionsClick: TweetActionsClick = object : TweetActionsClick {
         override fun onCommentsClick() {}
         override fun onRetweetsClick() {}

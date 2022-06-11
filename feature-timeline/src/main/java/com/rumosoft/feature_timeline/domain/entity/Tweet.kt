@@ -10,5 +10,5 @@ data class Tweet(
     val numLikes: Long,
     val elapsedTime: String,
     val verified: Boolean,
-    val images: List<String> = emptyList(),
+    val images: List<TweetImage> = emptyList(),
 )

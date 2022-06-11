@@ -1,6 +1,8 @@
 package com.rumosoft.feature_timeline.data.repository
 
+import com.rumosoft.feature_timeline.domain.entity.ImageType.Gif
 import com.rumosoft.feature_timeline.domain.entity.Tweet
+import com.rumosoft.feature_timeline.domain.entity.TweetImage
 import com.rumosoft.feature_timeline.domain.repo_interfaces.TweetsRepository
 import com.rumosoft.feature_timeline.infrastructure.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
@@ -50,7 +52,11 @@ class TweetsRepositoryImpl @Inject constructor(
                     numLikes = 733,
                     elapsedTime = "3 Jun",
                     verified = false,
-                    images = listOf("https://pbs.twimg.com/media/FUSD8YeUYAEvhol?format=jpg")
+                    images = listOf(
+                        TweetImage(
+                            url = "https://pbs.twimg.com/media/FUSD8YeUYAEvhol?format=jpg",
+                        )
+                    )
                 ),
                 Tweet(
                     username = "Eric Ampire",
@@ -70,8 +76,8 @@ class TweetsRepositoryImpl @Inject constructor(
                     elapsedTime = "30 Apr",
                     verified = false,
                     images = listOf(
-                        "https://pbs.twimg.com/media/FRl-YBHWUAALC71?format=jpg",
-                        "https://pbs.twimg.com/media/FRl-YBPXwAAcodj?format=jpg",
+                        TweetImage("https://pbs.twimg.com/media/FRl-YBHWUAALC71?format=jpg"),
+                        TweetImage("https://pbs.twimg.com/media/FRl-YBPXwAAcodj?format=jpg"),
                     )
                 ),
                 Tweet(
@@ -86,9 +92,9 @@ class TweetsRepositoryImpl @Inject constructor(
                     elapsedTime = "6 Jun",
                     verified = false,
                     images = listOf(
-                        "https://pbs.twimg.com/media/FUkBNmIWYAEZcBX?format=jpg",
-                        "https://pbs.twimg.com/media/FUkBNmNXEAA-Ouo?format=jpg",
-                        "https://pbs.twimg.com/media/FUkBPaDXEAAL3US?format=jpg",
+                        TweetImage("https://pbs.twimg.com/media/FUkBNmIWYAEZcBX?format=jpg"),
+                        TweetImage("https://pbs.twimg.com/media/FUkBNmNXEAA-Ouo?format=jpg"),
+                        TweetImage("https://pbs.twimg.com/media/FUkBPaDXEAAL3US?format=jpg"),
                     )
                 ),
                 Tweet(
@@ -102,10 +108,10 @@ class TweetsRepositoryImpl @Inject constructor(
                     elapsedTime = "26 May",
                     verified = false,
                     images = listOf(
-                        "https://pbs.twimg.com/media/FTtP2u5XwAc5EoE?format=jpg",
-                        "https://pbs.twimg.com/media/FTtP3xmWUAMA1t1?format=jpg",
-                        "https://pbs.twimg.com/media/FTtP3PQXoAARcnF?format=jpg",
-                        "https://pbs.twimg.com/media/FTtP4PKXoAA_H-M?format=jpg",
+                        TweetImage("https://pbs.twimg.com/media/FTtP2u5XwAc5EoE?format=jpg"),
+                        TweetImage("https://pbs.twimg.com/media/FTtP3xmWUAMA1t1?format=jpg"),
+                        TweetImage("https://pbs.twimg.com/media/FTtP3PQXoAARcnF?format=jpg"),
+                        TweetImage("https://pbs.twimg.com/media/FTtP4PKXoAA_H-M?format=jpg"),
                     )
                 ),
                 Tweet(
@@ -119,7 +125,10 @@ class TweetsRepositoryImpl @Inject constructor(
                     elapsedTime = "5 Jun",
                     verified = false,
                     images = listOf(
-                        "https://c.tenor.com/vW__kIdOl0EAAAAC/android-google-android.gif",
+                        TweetImage(
+                            url = "https://c.tenor.com/vW__kIdOl0EAAAAC/android-google-android.gif",
+                            imageType = Gif
+                        ),
                     )
                 ),
             )

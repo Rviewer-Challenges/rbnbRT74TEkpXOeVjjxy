@@ -1,10 +1,14 @@
 package com.rumosoft.feature_timeline.presentation.screen.model
 
+import com.rumosoft.feature_timeline.domain.entity.ImageType
 import com.rumosoft.feature_timeline.domain.entity.Tweet
+import com.rumosoft.feature_timeline.domain.entity.TweetImage
+import com.rumosoft.library_components.components.model.ImageTypeUI
+import com.rumosoft.library_components.components.model.ImageUI
 import kotlin.math.ln
 import kotlin.math.pow
 
-data class ScreenTweet(
+data class TweetUI(
     val username: String,
     val nickname: String,
     val profileImageUrl: String,
@@ -14,10 +18,10 @@ data class ScreenTweet(
     val numLikes: String,
     val elapsedTime: String,
     val verified: Boolean,
-    val images: List<String>,
+    val images: List<ImageUI>,
 )
 
-fun Tweet.toScreenTweet(): ScreenTweet {
+fun Tweet.toTweetUI(): TweetUI {
     fun getFormattedNumber(count: Long): String {
         if (count <= 0) return ""
         if (count < 1000) return count.toString()
@@ -25,7 +29,7 @@ fun Tweet.toScreenTweet(): ScreenTweet {
         return String.format("%.1f %c", count / 1000.0.pow(exp.toDouble()), "kMGTPE"[exp - 1])
     }
 
-    return ScreenTweet(
+    return TweetUI(
         username = username,
         nickname = nickname,
         profileImageUrl = profileImageUrl,
@@ -35,6 +39,17 @@ fun Tweet.toScreenTweet(): ScreenTweet {
         numLikes = getFormattedNumber(numLikes),
         elapsedTime = elapsedTime,
         verified = verified,
-        images = images,
+        images = images.map { it.toImageUI() },
     )
+}
+
+fun TweetImage.toImageUI(): ImageUI {
+    return ImageUI(url = url, imageType = imageType.toScreenImageType())
+}
+
+fun ImageType.toScreenImageType(): ImageTypeUI {
+    return when(this) {
+        ImageType.Static -> ImageTypeUI.Static
+        ImageType.Gif -> ImageTypeUI.Gif
+    }
 }

@@ -8,4 +8,5 @@
     <string name="tweet_text">Tweet text</string>
     <string name="tweet_images">Tweet images</string>
     <string name="tweet_image">Tweet image</string>
+    <string name="gif_image">GIF Image</string>
 </resources>

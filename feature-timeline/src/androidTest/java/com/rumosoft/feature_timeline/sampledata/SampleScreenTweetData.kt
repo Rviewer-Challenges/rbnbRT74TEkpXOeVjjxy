@@ -1,10 +1,10 @@
 package com.rumosoft.feature_timeline.sampledata
 
-import com.rumosoft.feature_timeline.presentation.screen.model.ScreenTweet
+import com.rumosoft.feature_timeline.presentation.screen.model.TweetUI
 
 object SampleScreenTweetData {
-    fun sampleScreenTweet(): ScreenTweet =
-        ScreenTweet(
+    fun sampleScreenTweet(): TweetUI =
+        TweetUI(
             profileImageUrl = "",
             username = "User Name",
             nickname = "nickname",

@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.karumi.shot.ScreenshotTest
 import com.rumosoft.library_components.R
+import com.rumosoft.library_components.components.model.ImageUI
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
@@ -133,7 +134,8 @@ internal class TweetContentKtTest : ScreenshotTest {
             contentDescription = stringResource(id = R.string.tweet_images)
             TweetContent(
                 message = mention,
-                images = listOf("imageUrl"),
+                images = listOf(
+                    ImageUI("imageUrl")),
             )
         }
 
@@ -146,7 +148,7 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.setContent {
             TweetContent(
                 message = "1 image",
-                images = (1..1).map { "image: $it" },
+                images = (1..1).map { ImageUI("image: $it") },
             )
         }
 
@@ -158,7 +160,7 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.setContent {
             TweetContent(
                 message = "2 images",
-                images = (1..2).map { "image: $it" },
+                images = (1..2).map { ImageUI("image: $it") },
             )
         }
 
@@ -170,7 +172,7 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.setContent {
             TweetContent(
                 message = "3 images",
-                images = (1..3).map { "image: $it" },
+                images = (1..3).map { ImageUI("image: $it") },
             )
         }
 
@@ -182,7 +184,7 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.setContent {
             TweetContent(
                 message = "4 images",
-                images = (1..4).map { "image: $it" },
+                images = (1..4).map { ImageUI("image: $it") },
             )
         }
 

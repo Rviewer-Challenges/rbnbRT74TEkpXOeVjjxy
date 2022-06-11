@@ -1,5 +1,7 @@
 package com.rumosoft.library_components.components.sampledata.model
 
+import com.rumosoft.library_components.components.model.ImageUI
+
 data class Tweet(
     val profileImageUrl: String,
     val username: String,
@@ -9,5 +11,5 @@ data class Tweet(
     val numRetweets: String,
     val numLikes: String,
     val elapsedTime: String,
-    val images: List<String>,
+    val images: List<ImageUI>,
 )
