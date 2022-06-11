@@ -58,6 +58,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
     implementation 'androidx.activity:activity-compose:1.4.0'
 
+    implementation("io.coil-kt:coil-compose:$coil_version")
+    implementation("io.coil-kt:coil-gif:$coil_version")
+
     implementation "androidx.core:core-splashscreen:$splash_version"
 
     implementation "androidx.navigation:navigation-compose:$nav_compose"

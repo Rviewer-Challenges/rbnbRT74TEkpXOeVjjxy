@@ -108,6 +108,20 @@ class TweetsRepositoryImpl @Inject constructor(
                         "https://pbs.twimg.com/media/FTtP4PKXoAA_H-M?format=jpg",
                     )
                 ),
+                Tweet(
+                    username = "Jep Rubio",
+                    nickname = "jeprubio",
+                    profileImageUrl = "https://pbs.twimg.com/profile_images/1465660161939460100/8LJftrt6_200x200.jpg",
+                    message = "\uD83E\uDD16",
+                    numComments = 0,
+                    numRetweets = 1,
+                    numLikes = 2,
+                    elapsedTime = "5 Jun",
+                    verified = false,
+                    images = listOf(
+                        "https://c.tenor.com/vW__kIdOl0EAAAAC/android-google-android.gif",
+                    )
+                ),
             )
         }
     }

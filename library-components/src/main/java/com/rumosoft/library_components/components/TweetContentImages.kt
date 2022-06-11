@@ -57,7 +57,7 @@ fun OneImageTweetLayout(imageUrl: String) {
         contentDescription = stringResource(id = R.string.tweet_image),
         contentScale = ContentScale.FillWidth,
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
     )
 }
 
@@ -79,7 +79,6 @@ fun TwoImagesTweetLayout(images: List<String>) {
 @Composable
 fun ThreeImagesTweetLayout(images: List<String>) {
     Row(
-
         modifier = Modifier.fillMaxWidth()
     ) {
         OneImageColumn(
