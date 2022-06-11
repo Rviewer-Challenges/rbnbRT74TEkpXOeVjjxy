@@ -18,6 +18,7 @@ import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
 fun Tweet(
+    tweetId: Long,
     profileImageUrl: String,
     username: String,
     nickname: String,
@@ -34,6 +35,7 @@ fun Tweet(
         override fun onLikesClick() {}
         override fun onShareClick() {}
     },
+    onPictureSelected: (Long) -> Unit = {},
 ) {
     val context = LocalContext.current
     Row(
@@ -64,6 +66,7 @@ fun Tweet(
                         else -> { /* Do nothing */ }
                     }
                 },
+                onPictureSelected = { onPictureSelected(tweetId) },
             )
             TweetActionButtons(
                 numComments = numComments,
@@ -85,6 +88,7 @@ fun TweetUnverifiedUserPreview() {
     val sampleTweet = remember { sampleTweet() }
     TwitterMirroringTheme {
         Tweet(
+            tweetId = 1,
             profileImageUrl = sampleTweet.profileImageUrl,
             username = sampleTweet.username,
             nickname = sampleTweet.nickname,
@@ -106,6 +110,7 @@ fun TweetVerifiedUserPreview() {
     val sampleTweet = remember { sampleTweet() }
     TwitterMirroringTheme {
         Tweet(
+            tweetId = 1,
             profileImageUrl = sampleTweet.profileImageUrl,
             username = sampleTweet.username,
             nickname = sampleTweet.nickname,

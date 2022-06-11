@@ -1,6 +1,7 @@
 package com.rumosoft.feature_timeline.domain.entity
 
 data class Tweet(
+    val id: Long,
     val username: String,
     val nickname: String,
     val profileImageUrl: String,

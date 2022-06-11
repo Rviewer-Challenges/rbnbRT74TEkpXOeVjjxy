@@ -38,10 +38,14 @@ fun TweetContent(
     images: List<ImageUI>,
     modifier: Modifier = Modifier,
     onHighlightedTextClick: (String, String) -> Unit = { _, _ -> },
+    onPictureSelected: () -> Unit = {},
 ) {
     Column {
         TweetContentText(message, modifier, onHighlightedTextClick)
-        TweetContentImages(images)
+        TweetContentImages(
+            images = images,
+            onPictureSelected = onPictureSelected,
+        )
     }
 }
 
@@ -182,7 +186,9 @@ fun TweetContentTextPreview() {
 )
 @Composable
 fun TweetContentWithMentionsPreview() {
-    val sampleTweet = remember { SampleTweetData.sampleTweet().copy(message = "text with @mentions and more text") }
+    val sampleTweet = remember {
+        SampleTweetData.sampleTweet().copy(message = "text with @mentions and more text")
+    }
     TwitterMirroringTheme {
         TweetContent(
             message = sampleTweet.message,
@@ -196,7 +202,10 @@ fun TweetContentWithMentionsPreview() {
 )
 @Composable
 fun TweetContentWithUrlsPreview() {
-    val sampleTweet = remember { SampleTweetData.sampleTweet().copy(message = "text with http://url.com and more https://web.urls.com") }
+    val sampleTweet = remember {
+        SampleTweetData.sampleTweet()
+            .copy(message = "text with http://url.com and more https://web.urls.com")
+    }
     TwitterMirroringTheme {
         TweetContent(
             message = sampleTweet.message,
@@ -210,7 +219,10 @@ fun TweetContentWithUrlsPreview() {
 )
 @Composable
 fun TweetContentWithHashtagsPreview() {
-    val sampleTweet = remember { SampleTweetData.sampleTweet().copy(message = "text with #hastag and more #hastags and #otherhashtag") }
+    val sampleTweet = remember {
+        SampleTweetData.sampleTweet()
+            .copy(message = "text with #hastag and more #hastags and #otherhashtag")
+    }
     TwitterMirroringTheme {
         TweetContent(
             message = sampleTweet.message,

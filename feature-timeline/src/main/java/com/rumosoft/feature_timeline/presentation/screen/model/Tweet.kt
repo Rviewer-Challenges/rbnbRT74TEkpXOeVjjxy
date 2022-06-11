@@ -9,6 +9,7 @@ import kotlin.math.ln
 import kotlin.math.pow
 
 data class TweetUI(
+    val id: Long,
     val username: String,
     val nickname: String,
     val profileImageUrl: String,
@@ -30,6 +31,7 @@ fun Tweet.toTweetUI(): TweetUI {
     }
 
     return TweetUI(
+        id = id,
         username = username,
         nickname = nickname,
         profileImageUrl = profileImageUrl,

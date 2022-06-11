@@ -24,10 +24,15 @@ import com.rumosoft.library_components.infrastructure.toast
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
-fun TimelineState.BuildUI() {
+fun TimelineState.BuildUI(
+    onPictureSelected: (Long) -> Unit = {}
+) {
     when (this) {
         Loading -> TimelineLoading()
-        is Ready -> TimelineReady(this)
+        is Ready -> TimelineReady(
+            uiState = this,
+            onPictureSelected = onPictureSelected,
+        )
     }
 }
 
@@ -47,6 +52,7 @@ private fun TimelineLoading() {
 @Composable
 private fun TimelineReady(
     uiState: Ready,
+    onPictureSelected: (Long) -> Unit = {},
 ) {
     val context = LocalContext.current
     val timelineContentDescription = stringResource(id = R.string.timeline)
@@ -57,6 +63,7 @@ private fun TimelineReady(
     ) {
         items(items = uiState.tweets, itemContent = { tweet ->
             Tweet(
+                tweetId = tweet.id,
                 profileImageUrl = tweet.profileImageUrl,
                 username = tweet.username,
                 nickname = tweet.nickname,
@@ -73,6 +80,7 @@ private fun TimelineReady(
                     override fun onLikesClick() { context.toast("Likes click") }
                     override fun onShareClick() { context.toast("Share click") }
                 },
+                onPictureSelected = onPictureSelected,
             )
             Divider(color = TwitterMirroringTheme.colors.secondaryVariant, thickness = 1.dp)
         })

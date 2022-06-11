@@ -1,5 +1,6 @@
 package com.rumosoft.library_components.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,7 +37,10 @@ private const val IMAGE_SEPARATION_DP = 4
 private const val MULTIPLE_PICS_COLUMN_ASPECT_RATIO = 0.9f
 
 @Composable
-fun TweetContentImages(images: List<ImageUI>) {
+fun TweetContentImages(
+    images: List<ImageUI>,
+    onPictureSelected: () -> Unit = {},
+) {
     if (images.isNotEmpty()) {
         val imagesContentDescription = stringResource(id = R.string.tweet_images)
         Box(
@@ -50,17 +54,32 @@ fun TweetContentImages(images: List<ImageUI>) {
                 )
         ) {
             when (images.size) {
-                1 -> OneImageTweetLayout(images.first())
-                2 -> TwoImagesTweetLayout(images)
-                3 -> ThreeImagesTweetLayout(images)
-                else -> FourImagesTweetLayout(images)
+                1 -> OneImageTweetLayout(
+                    image = images.first(),
+                    onPictureSelected = onPictureSelected,
+                )
+                2 -> TwoImagesTweetLayout(
+                    images = images,
+                    onPictureSelected = onPictureSelected,
+                )
+                3 -> ThreeImagesTweetLayout(
+                    images = images,
+                    onPictureSelected = onPictureSelected,
+                )
+                else -> FourImagesTweetLayout(
+                    images = images,
+                    onPictureSelected = onPictureSelected,
+                )
             }
         }
     }
 }
 
 @Composable
-fun OneImageTweetLayout(image: ImageUI) {
+fun OneImageTweetLayout(
+    image: ImageUI,
+    onPictureSelected: () -> Unit,
+) {
     Box(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.BottomStart,
@@ -70,6 +89,7 @@ fun OneImageTweetLayout(image: ImageUI) {
             contentDescription = stringResource(id = R.string.tweet_image),
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.fillMaxWidth(),
+            onPictureSelected = onPictureSelected,
         )
         if (image.imageType == Gif) {
             val gifContentDescription = stringResource(id = R.string.gif_image)
@@ -94,50 +114,65 @@ fun OneImageTweetLayout(image: ImageUI) {
 }
 
 @Composable
-fun TwoImagesTweetLayout(images: List<ImageUI>) {
+fun TwoImagesTweetLayout(
+    images: List<ImageUI>,
+    onPictureSelected: () -> Unit,
+) {
     Row(modifier = Modifier.fillMaxWidth()) {
         OneImageColumn(
             images = images.take(1),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            onPictureSelected = onPictureSelected
         )
         Spacer(Modifier.width(IMAGE_SEPARATION_DP.dp))
         OneImageColumn(
             images = images.drop(1).take(1),
             modifier = Modifier.weight(1f),
+            onPictureSelected = onPictureSelected,
         )
     }
 }
 
 @Composable
-fun ThreeImagesTweetLayout(images: List<ImageUI>) {
+fun ThreeImagesTweetLayout(
+    images: List<ImageUI>,
+    onPictureSelected: () -> Unit,
+) {
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
         OneImageColumn(
             images = images.take(1),
             modifier = Modifier.weight(1f),
+            onPictureSelected = onPictureSelected
         )
         Spacer(Modifier.width(IMAGE_SEPARATION_DP.dp))
         TwoImagesColumn(
             images = images.drop(1).take(2),
             modifier = Modifier.weight(1f),
+            onPictureSelected = onPictureSelected
         )
     }
 }
 
 @Composable
-fun FourImagesTweetLayout(images: List<ImageUI>) {
+fun FourImagesTweetLayout(
+    images: List<ImageUI>,
+    onPictureSelected: () -> Unit,
+) {
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
         TwoImagesColumn(
             images = images.take(2),
             modifier = Modifier.weight(1f),
+            onPictureSelected = onPictureSelected,
         )
         Spacer(Modifier.width(IMAGE_SEPARATION_DP.dp))
         TwoImagesColumn(
             images = images.drop(2).take(2),
             modifier = Modifier.weight(1f),
+            onPictureSelected = onPictureSelected,
         )
     }
 }
@@ -146,12 +181,14 @@ fun FourImagesTweetLayout(images: List<ImageUI>) {
 private fun OneImageColumn(
     images: List<ImageUI>,
     modifier: Modifier = Modifier,
+    onPictureSelected: () -> Unit,
 ) {
     val imageContentDescription = stringResource(id = R.string.tweet_image)
     TweetImage(
         image = images[0],
         contentDescription = imageContentDescription,
         contentScale = ContentScale.Crop,
+        onPictureSelected = onPictureSelected,
         modifier = modifier
             .aspectRatio(MULTIPLE_PICS_COLUMN_ASPECT_RATIO),
     )
@@ -161,6 +198,7 @@ private fun OneImageColumn(
 private fun TwoImagesColumn(
     images: List<ImageUI>,
     modifier: Modifier = Modifier,
+    onPictureSelected: () -> Unit,
 ) {
     val imageContentDescription = stringResource(id = R.string.tweet_image)
     Column(
@@ -172,6 +210,7 @@ private fun TwoImagesColumn(
             image = images[0],
             contentDescription = imageContentDescription,
             contentScale = ContentScale.Crop,
+            onPictureSelected = onPictureSelected,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxSize(),
@@ -181,6 +220,7 @@ private fun TwoImagesColumn(
             image = images[1],
             contentDescription = imageContentDescription,
             contentScale = ContentScale.Crop,
+            onPictureSelected = onPictureSelected,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxSize(),
@@ -189,17 +229,19 @@ private fun TwoImagesColumn(
 }
 
 @Composable
-private fun TweetImage(
+fun TweetImage(
     image: ImageUI,
     contentDescription: String,
     contentScale: ContentScale,
     modifier: Modifier = Modifier,
+    onPictureSelected: () -> Unit = {},
 ) {
     AsyncImage(
         model = image.url,
         error = painterResource(id = R.drawable.img_error),
         contentDescription = contentDescription,
         contentScale = contentScale,
-        modifier = modifier,
+        modifier = modifier
+            .clickable { onPictureSelected() },
     )
 }
