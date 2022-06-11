@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.karumi.shot.ScreenshotTest
 import com.rumosoft.library_components.R
+import com.rumosoft.library_components.components.model.ImageTypeUI
 import com.rumosoft.library_components.components.model.ImageUI
 import io.mockk.justRun
 import io.mockk.mockk
@@ -135,7 +136,8 @@ internal class TweetContentKtTest : ScreenshotTest {
             TweetContent(
                 message = mention,
                 images = listOf(
-                    ImageUI("imageUrl")),
+                    ImageUI("imageUrl")
+                ),
             )
         }
 
@@ -188,6 +190,26 @@ internal class TweetContentKtTest : ScreenshotTest {
             )
         }
 
+        compareScreenshot(composeTestRule)
+    }
+
+    @Test
+    fun tweetImageGif_checkGifDescription() {
+        lateinit var gifContentDescription: String
+        composeTestRule.setContent {
+            gifContentDescription = stringResource(id = R.string.gif_image)
+            TweetContent(
+                message = "Gif Image",
+                images = listOf(
+                    ImageUI(
+                        url = "Gif image",
+                        imageType = ImageTypeUI.Gif
+                    )
+                ),
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription(gifContentDescription).assertIsDisplayed()
         compareScreenshot(composeTestRule)
     }
 }
