@@ -49,29 +49,33 @@ internal class TweetContentKtTest {
     }
 
     @Test
-    fun tweetClickUrl_invokesOpenUrlListener() {
+    fun tweetClickUrl_invokesHighlightTextClickListener() {
         val url = "https://www.google.es"
-        val onUrlClick: (String) -> Unit = mockk<(String) -> Unit>().also {
-            justRun { it(url) }
+        val tag = "urlTag"
+        val onHighlightedTextClick: (String, String) -> Unit = mockk<(String, String) -> Unit>().also {
+            justRun { it(url, tag) }
         }
 
         composeTestRule.setContent {
             TweetContent(
                 message = url,
                 images = emptyList(),
-                onUrlClick = onUrlClick,
+                onHighlightedTextClick = onHighlightedTextClick,
             )
         }
 
         composeTestRule.onNodeWithContentDescription("Tweet text").performClick()
 
-        verify { onUrlClick(url) }
+        verify { onHighlightedTextClick(url, tag) }
     }
 
     @Test
-    fun tweetClickMention_doesNotInvokeOpenUrlListener() {
+    fun tweetClickMention_invokesHighlightTextClickListener() {
         val mention = "@whatever"
-        val onUrlClick: (String) -> Unit = mockk()
+        val tag = "mentionTag"
+        val onHighlightedTextClick: (String, String) -> Unit = mockk<(String, String) -> Unit>().also {
+            justRun { it(mention, tag) }
+        }
         lateinit var contentDescription: String
 
         composeTestRule.setContent {
@@ -79,19 +83,41 @@ internal class TweetContentKtTest {
             TweetContent(
                 message = mention,
                 images = emptyList(),
-                onUrlClick = onUrlClick,
+                onHighlightedTextClick = onHighlightedTextClick,
             )
         }
 
         composeTestRule.onNodeWithContentDescription(contentDescription).performClick()
 
-        verify(exactly = 0) { onUrlClick(any()) }
+        verify { onHighlightedTextClick(mention, tag) }
+    }
+
+    @Test
+    fun tweetClickHash_invokesHighlightTextClickListener() {
+        val hashtag = "#whatever"
+        val tag = "hashtagTag"
+        val onHighlightedTextClick: (String, String) -> Unit = mockk<(String, String) -> Unit>().also {
+            justRun { it(hashtag, tag) }
+        }
+        lateinit var contentDescription: String
+
+        composeTestRule.setContent {
+            contentDescription = stringResource(id = R.string.tweet_text)
+            TweetContent(
+                message = hashtag,
+                images = emptyList(),
+                onHighlightedTextClick = onHighlightedTextClick,
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription(contentDescription).performClick()
+
+        verify { onHighlightedTextClick(hashtag, tag) }
     }
 
     @Test
     fun tweetWithImages_imagesElementIsShown() {
         val mention = "@whatever"
-        val onUrlClick: (String) -> Unit = mockk()
         lateinit var contentDescription: String
 
         composeTestRule.setContent {
@@ -99,7 +125,6 @@ internal class TweetContentKtTest {
             TweetContent(
                 message = mention,
                 images = listOf("imageUrl"),
-                onUrlClick = onUrlClick,
             )
         }
 

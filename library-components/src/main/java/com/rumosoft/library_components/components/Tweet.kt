@@ -57,8 +57,11 @@ fun Tweet(
                 message = message,
                 modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium),
                 images = images,
-                onUrlClick = { url ->
-                    context.openUrl(url)
+                onHighlightedTextClick = { text, tag ->
+                    when (tag) {
+                        URL_TAG -> context.openUrl(text)
+                        else -> { /* Do nothing */ }
+                    }
                 },
             )
             TweetActionButtons(
