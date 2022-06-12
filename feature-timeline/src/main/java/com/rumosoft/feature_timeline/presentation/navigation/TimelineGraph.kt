@@ -13,16 +13,18 @@ import com.rumosoft.feature_timeline.presentation.screen.TimelineRoute
 fun NavGraphBuilder.timelineGraph(navController: NavHostController) {
     composable(route = TimelineDestination.route) {
         TimelineRoute(
-            onPictureSelected = { tweetId: Long ->
-                navController.navigate("${PicturesDestination.route}/${tweetId}")
+            onPictureSelected = { tweetId: Long, pictureId ->
+                navController.navigate("${PicturesDestination.route}/${tweetId}/${pictureId}")
             }
         )
     }
-
     composable(
-        route = "${PicturesDestination.route}/{${PicturesDestination.tweetArg}}",
+        route = "${PicturesDestination.route}/{${PicturesDestination.tweetArg}}/{${PicturesDestination.pictureArg}}",
         arguments = listOf(
             navArgument(PicturesDestination.tweetArg) {
+                type = NavType.LongType
+            },
+            navArgument(PicturesDestination.pictureArg) {
                 type = NavType.LongType
             }
         )

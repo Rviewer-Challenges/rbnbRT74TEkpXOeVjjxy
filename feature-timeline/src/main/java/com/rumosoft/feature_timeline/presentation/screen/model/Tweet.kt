@@ -46,11 +46,15 @@ fun Tweet.toTweetUI(): TweetUI {
 }
 
 fun TweetImage.toImageUI(): ImageUI {
-    return ImageUI(url = url, imageType = imageType.toScreenImageType())
+    return ImageUI(
+        id = id,
+        url = url,
+        imageType = imageType.toScreenImageType()
+    )
 }
 
 fun ImageType.toScreenImageType(): ImageTypeUI {
-    return when(this) {
+    return when (this) {
         ImageType.Static -> ImageTypeUI.Static
         ImageType.Gif -> ImageTypeUI.Gif
     }

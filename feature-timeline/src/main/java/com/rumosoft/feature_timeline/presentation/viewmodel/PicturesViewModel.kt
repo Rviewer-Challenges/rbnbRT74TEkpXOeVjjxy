@@ -25,13 +25,17 @@ class PicturesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<PicturesState>(PicturesLoading)
 
     private val tweetId: Long = checkNotNull(savedStateHandle[PicturesDestination.tweetArg])
+    private val pictureId: Long = checkNotNull(savedStateHandle[PicturesDestination.pictureArg])
 
     fun retrievePictures() {
         if (_uiState.value is PicturesLoading) {
             viewModelScope.launch {
                 val tweet = getTweetUseCase(tweetId)
                 _uiState.update {
-                    PicturesReady(tweet.toTweetUI())
+                    PicturesReady(
+                        tweet = tweet.toTweetUI(),
+                        pictureId = pictureId
+                    )
                 }
             }
         }

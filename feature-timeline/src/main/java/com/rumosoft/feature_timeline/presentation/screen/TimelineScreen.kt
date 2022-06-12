@@ -15,7 +15,7 @@ import com.rumosoft.feature_timeline.presentation.viewmodel.state.TimelineState
 @Composable
 fun TimelineRoute(
     viewModel: TimelineViewModel = hiltViewModel(),
-    onPictureSelected: (Long) -> Unit = {},
+    onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     LaunchedEffect(Unit) {
         viewModel.retrieveTimeline()
@@ -30,7 +30,7 @@ fun TimelineRoute(
 @Composable
 fun TimelineScreen(
     uiState: TimelineState,
-    onPictureSelected: (Long) -> Unit = {},
+    onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     Surface(modifier = Modifier.fillMaxSize()) {
         uiState.BuildUI(onPictureSelected)

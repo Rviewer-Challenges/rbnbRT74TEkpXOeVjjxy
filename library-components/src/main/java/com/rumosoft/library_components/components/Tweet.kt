@@ -35,7 +35,7 @@ fun Tweet(
         override fun onLikesClick() {}
         override fun onShareClick() {}
     },
-    onPictureSelected: (Long) -> Unit = {},
+    onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     val context = LocalContext.current
     Row(
@@ -63,10 +63,14 @@ fun Tweet(
                 onHighlightedTextClick = { text, tag ->
                     when (tag) {
                         URL_TAG -> context.openUrl(text)
-                        else -> { /* Do nothing */ }
+                        else -> {
+                            /* Do nothing */
+                        }
                     }
                 },
-                onPictureSelected = { onPictureSelected(tweetId) },
+                onPictureSelected = { imageId ->
+                    onPictureSelected(tweetId, imageId)
+                },
             )
             TweetActionButtons(
                 numComments = numComments,

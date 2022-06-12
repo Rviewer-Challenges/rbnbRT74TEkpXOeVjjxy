@@ -38,7 +38,7 @@ fun TweetContent(
     images: List<ImageUI>,
     modifier: Modifier = Modifier,
     onHighlightedTextClick: (String, String) -> Unit = { _, _ -> },
-    onPictureSelected: () -> Unit = {},
+    onPictureSelected: (Long) -> Unit = {},
 ) {
     Column {
         TweetContentText(message, modifier, onHighlightedTextClick)

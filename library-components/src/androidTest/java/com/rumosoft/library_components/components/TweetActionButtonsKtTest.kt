@@ -17,9 +17,9 @@ internal class TweetActionButtonsKtTest: ScreenshotTest {
 
     @Test
     fun tweetActionButtons_showsAll4Buttons() {
-        val comments = Random.nextInt(1, 100)
-        val retweets = Random.nextInt(1, 100)
-        val likes = Random.nextInt(1, 100)
+        val comments = 61
+        val retweets = 33
+        val likes = 47
         val actionsClick: TweetActionsClick =
             emptyActionsClick()
         lateinit var commentsContentDescription: String

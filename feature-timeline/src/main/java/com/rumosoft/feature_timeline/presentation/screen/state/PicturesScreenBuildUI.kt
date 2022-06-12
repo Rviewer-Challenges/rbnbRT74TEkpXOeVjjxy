@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +21,6 @@ import com.rumosoft.feature_timeline.presentation.viewmodel.state.PicturesLoadin
 import com.rumosoft.feature_timeline.presentation.viewmodel.state.PicturesReady
 import com.rumosoft.feature_timeline.presentation.viewmodel.state.PicturesState
 import com.rumosoft.library_components.components.TweetActionButtons
-import com.rumosoft.library_components.components.TweetContentImages
 import com.rumosoft.library_components.components.TweetImage
 import com.rumosoft.library_components.components.model.TweetActionsClick
 
@@ -72,7 +70,8 @@ private fun PicturesReady(
             modifier = Modifier.fillMaxSize(),
         ) {
             TweetImage(
-                image = uiState.tweet.images.first(),
+                image = uiState.tweet.images.find { it.id == uiState.pictureId }
+                    ?: uiState.tweet.images.first(),
                 contentDescription = stringResource(id = com.rumosoft.library_components.R.string.tweet_image),
                 contentScale = ContentScale.FillWidth,
                 imageLoader = imageLoader,

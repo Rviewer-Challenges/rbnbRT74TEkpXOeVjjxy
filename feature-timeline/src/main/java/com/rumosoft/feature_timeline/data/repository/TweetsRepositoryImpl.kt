@@ -69,6 +69,7 @@ class TweetsRepositoryImpl @Inject constructor(
             verified = false,
             images = listOf(
                 TweetImage(
+                    id = 1L,
                     url = "https://pbs.twimg.com/media/FUSD8YeUYAEvhol?format=jpg",
                 )
             )
@@ -92,8 +93,14 @@ class TweetsRepositoryImpl @Inject constructor(
             elapsedTime = "30 Apr",
             verified = false,
             images = listOf(
-                TweetImage("https://pbs.twimg.com/media/FRl-YBHWUAALC71?format=jpg"),
-                TweetImage("https://pbs.twimg.com/media/FRl-YBPXwAAcodj?format=jpg"),
+                TweetImage(
+                    id = 2L,
+                    url = "https://pbs.twimg.com/media/FRl-YBHWUAALC71?format=jpg"
+                ),
+                TweetImage(
+                    id = 3L,
+                    url = "https://pbs.twimg.com/media/FRl-YBPXwAAcodj?format=jpg"
+                ),
             )
         ),
         Tweet(
@@ -109,9 +116,18 @@ class TweetsRepositoryImpl @Inject constructor(
             elapsedTime = "6 Jun",
             verified = false,
             images = listOf(
-                TweetImage("https://pbs.twimg.com/media/FUkBNmIWYAEZcBX?format=jpg"),
-                TweetImage("https://pbs.twimg.com/media/FUkBNmNXEAA-Ouo?format=jpg"),
-                TweetImage("https://pbs.twimg.com/media/FUkBPaDXEAAL3US?format=jpg"),
+                TweetImage(
+                    id = 4L,
+                    url = "https://pbs.twimg.com/media/FUkBNmIWYAEZcBX?format=jpg"
+                ),
+                TweetImage(
+                    id = 5L,
+                    url = "https://pbs.twimg.com/media/FUkBNmNXEAA-Ouo?format=jpg"
+                ),
+                TweetImage(
+                    id = 6L,
+                    url = "https://pbs.twimg.com/media/FUkBPaDXEAAL3US?format=jpg"
+                ),
             )
         ),
         Tweet(
@@ -126,10 +142,22 @@ class TweetsRepositoryImpl @Inject constructor(
             elapsedTime = "26 May",
             verified = false,
             images = listOf(
-                TweetImage("https://pbs.twimg.com/media/FTtP2u5XwAc5EoE?format=jpg"),
-                TweetImage("https://pbs.twimg.com/media/FTtP3xmWUAMA1t1?format=jpg"),
-                TweetImage("https://pbs.twimg.com/media/FTtP3PQXoAARcnF?format=jpg"),
-                TweetImage("https://pbs.twimg.com/media/FTtP4PKXoAA_H-M?format=jpg"),
+                TweetImage(
+                    id = 7L,
+                    url = "https://pbs.twimg.com/media/FTtP2u5XwAc5EoE?format=jpg"
+                ),
+                TweetImage(
+                    id = 8L,
+                    url = "https://pbs.twimg.com/media/FTtP3xmWUAMA1t1?format=jpg"
+                ),
+                TweetImage(
+                    id = 9L,
+                    url = "https://pbs.twimg.com/media/FTtP3PQXoAARcnF?format=jpg"
+                ),
+                TweetImage(
+                    id = 10L,
+                    url = "https://pbs.twimg.com/media/FTtP4PKXoAA_H-M?format=jpg"
+                ),
             )
         ),
         Tweet(
@@ -145,6 +173,7 @@ class TweetsRepositoryImpl @Inject constructor(
             verified = false,
             images = listOf(
                 TweetImage(
+                    id = 11L,
                     url = "https://c.tenor.com/vW__kIdOl0EAAAAC/android-google-android.gif",
                     imageType = Gif
                 ),

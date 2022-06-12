@@ -1,5 +1,6 @@
 package com.rumosoft.library_components.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,7 +43,7 @@ private const val MULTIPLE_PICS_COLUMN_ASPECT_RATIO = 0.9f
 @Composable
 fun TweetContentImages(
     images: List<ImageUI>,
-    onPictureSelected: () -> Unit = {},
+    onPictureSelected: (Long) -> Unit = {},
 ) {
     if (images.isNotEmpty()) {
         val imagesContentDescription = stringResource(id = R.string.tweet_images)
@@ -81,20 +82,31 @@ fun TweetContentImages(
 @Composable
 fun OneImageTweetLayout(
     image: ImageUI,
-    onPictureSelected: () -> Unit,
+    onPictureSelected: (Long) -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.BottomStart,
     ) {
-        TweetImage(
-            image = image,
-            contentDescription = stringResource(id = R.string.tweet_image),
-            contentScale = ContentScale.FillWidth,
+        Box(
             modifier = Modifier.fillMaxWidth(),
-            onPictureSelected = onPictureSelected,
-        )
-        if (image.imageType == Gif) {
+            contentAlignment = Alignment.Center,
+        ) {
+            TweetImage(
+                image = image,
+                contentDescription = stringResource(id = R.string.tweet_image),
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier.fillMaxWidth(),
+                onPictureSelected = onPictureSelected,
+            )
+            if (isGifImage(image)) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_play),
+                    contentDescription = null,
+                )
+            }
+        }
+        if (isGifImage(image)) {
             val gifContentDescription = stringResource(id = R.string.gif_image)
             Button(
                 onClick = {},
@@ -109,17 +121,20 @@ fun OneImageTweetLayout(
                 Text(
                     text = "GIF",
                     color = TwitterMirroringTheme.extraColors.white,
-                    style = TwitterMirroringTheme.typography.h4,
+                    style = TwitterMirroringTheme.typography.h6,
                 )
             }
         }
     }
 }
 
+private fun isGifImage(image: ImageUI) =
+    image.imageType == Gif
+
 @Composable
 fun TwoImagesTweetLayout(
     images: List<ImageUI>,
-    onPictureSelected: () -> Unit,
+    onPictureSelected: (Long) -> Unit,
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
         OneImageColumn(
@@ -139,7 +154,7 @@ fun TwoImagesTweetLayout(
 @Composable
 fun ThreeImagesTweetLayout(
     images: List<ImageUI>,
-    onPictureSelected: () -> Unit,
+    onPictureSelected: (Long) -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -161,7 +176,7 @@ fun ThreeImagesTweetLayout(
 @Composable
 fun FourImagesTweetLayout(
     images: List<ImageUI>,
-    onPictureSelected: () -> Unit,
+    onPictureSelected: (Long) -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -184,7 +199,7 @@ fun FourImagesTweetLayout(
 private fun OneImageColumn(
     images: List<ImageUI>,
     modifier: Modifier = Modifier,
-    onPictureSelected: () -> Unit,
+    onPictureSelected: (Long) -> Unit,
 ) {
     val imageContentDescription = stringResource(id = R.string.tweet_image)
     TweetImage(
@@ -201,7 +216,7 @@ private fun OneImageColumn(
 private fun TwoImagesColumn(
     images: List<ImageUI>,
     modifier: Modifier = Modifier,
-    onPictureSelected: () -> Unit,
+    onPictureSelected: (Long) -> Unit,
 ) {
     val imageContentDescription = stringResource(id = R.string.tweet_image)
     Column(
@@ -237,7 +252,7 @@ fun TweetImage(
     contentDescription: String,
     contentScale: ContentScale,
     modifier: Modifier = Modifier,
-    onPictureSelected: () -> Unit = {},
+    onPictureSelected: (Long) -> Unit = {},
     imageLoader: ImageLoader = Coil.imageLoader(LocalContext.current),
 ) {
     AsyncImage(
@@ -247,6 +262,6 @@ fun TweetImage(
         contentDescription = contentDescription,
         contentScale = contentScale,
         modifier = modifier
-            .clickable { onPictureSelected() },
+            .clickable { onPictureSelected(image.id) },
     )
 }

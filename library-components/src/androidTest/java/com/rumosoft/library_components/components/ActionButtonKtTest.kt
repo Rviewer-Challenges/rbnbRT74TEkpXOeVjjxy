@@ -22,7 +22,7 @@ internal class ActionButtonKtTest: ScreenshotTest {
 
     @Test
     fun actionButton_showsValue() {
-        val numComments = Random.nextInt(1, 100)
+        val numComments = 84
 
         composeTestRule.setContent {
             ActionButton(TweetActionComments(numComments.toString()))

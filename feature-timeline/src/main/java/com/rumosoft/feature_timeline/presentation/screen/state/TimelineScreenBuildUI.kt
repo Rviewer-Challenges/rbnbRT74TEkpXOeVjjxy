@@ -25,7 +25,7 @@ import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
 fun TimelineState.BuildUI(
-    onPictureSelected: (Long) -> Unit = {}
+    onPictureSelected: (Long, Long) -> Unit = { _, _ -> }
 ) {
     when (this) {
         Loading -> TimelineLoading()
@@ -52,7 +52,7 @@ private fun TimelineLoading() {
 @Composable
 private fun TimelineReady(
     uiState: Ready,
-    onPictureSelected: (Long) -> Unit = {},
+    onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     val context = LocalContext.current
     val timelineContentDescription = stringResource(id = R.string.timeline)

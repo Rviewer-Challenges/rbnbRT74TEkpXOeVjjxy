@@ -136,7 +136,10 @@ internal class TweetContentKtTest : ScreenshotTest {
             TweetContent(
                 message = mention,
                 images = listOf(
-                    ImageUI("imageUrl")
+                    ImageUI(
+                        id = 1L,
+                        url = "imageUrl"
+                    )
                 ),
             )
         }
@@ -150,7 +153,12 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.setContent {
             TweetContent(
                 message = "1 image",
-                images = (1..1).map { ImageUI("image: $it") },
+                images = (1..1).map {
+                    ImageUI(
+                        id = it.toLong(),
+                        url = "image: $it"
+                    )
+                },
             )
         }
 
@@ -162,7 +170,12 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.setContent {
             TweetContent(
                 message = "2 images",
-                images = (1..2).map { ImageUI("image: $it") },
+                images = (1..2).map {
+                    ImageUI(
+                        id = it.toLong(),
+                        url = "image: $it"
+                    )
+                },
             )
         }
 
@@ -174,7 +187,12 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.setContent {
             TweetContent(
                 message = "3 images",
-                images = (1..3).map { ImageUI("image: $it") },
+                images = (1..3).map {
+                    ImageUI(
+                        id = it.toLong(),
+                        url = "image: $it"
+                    )
+                },
             )
         }
 
@@ -186,7 +204,12 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.setContent {
             TweetContent(
                 message = "4 images",
-                images = (1..4).map { ImageUI("image: $it") },
+                images = (1..4).map {
+                    ImageUI(
+                        id = it.toLong(),
+                        url = "image: $it"
+                    )
+                },
             )
         }
 
@@ -202,6 +225,7 @@ internal class TweetContentKtTest : ScreenshotTest {
                 message = "Gif Image",
                 images = listOf(
                     ImageUI(
+                        id = 1L,
                         url = "Gif image",
                         imageType = ImageTypeUI.Gif
                     )
