@@ -29,6 +29,8 @@ fun NavGraphBuilder.timelineGraph(navController: NavHostController) {
             }
         )
     ) {
-        PicturesRoute()
+        PicturesRoute(
+            onBackClick = { navController.popBackStack() }
+        )
     }
 }

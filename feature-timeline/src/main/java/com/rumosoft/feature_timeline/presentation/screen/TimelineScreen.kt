@@ -1,7 +1,10 @@
 package com.rumosoft.feature_timeline.presentation.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -11,6 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.rumosoft.feature_timeline.presentation.screen.state.BuildUI
 import com.rumosoft.feature_timeline.presentation.viewmodel.TimelineViewModel
 import com.rumosoft.feature_timeline.presentation.viewmodel.state.TimelineState
+import com.rumosoft.library_components.components.TwitterTitle
+import com.rumosoft.library_components.components.TwitterTopAppBar
 
 @Composable
 fun TimelineRoute(
@@ -32,7 +37,22 @@ fun TimelineScreen(
     uiState: TimelineState,
     onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        uiState.BuildUI(onPictureSelected)
+    val scaffoldState = rememberScaffoldState()
+
+    Scaffold(
+        scaffoldState = scaffoldState,
+        topBar = {
+            TwitterTopAppBar(
+                title = { TwitterTitle() }
+            )
+        }
+    ) { innerPadding ->
+        Surface(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+        ) {
+            uiState.BuildUI(onPictureSelected)
+        }
     }
 }

@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -79,16 +81,20 @@ private fun PicturesReady(
                 onPictureSelected = { },
             )
         }
-        TweetActionButtons(
-            numComments = uiState.tweet.numComments,
-            numRetweets = uiState.tweet.numRetweets,
-            numLikes = uiState.tweet.numLikes,
-            onActionsClick = object : TweetActionsClick {
-                override fun onCommentsClick() {}
-                override fun onRetweetsClick() {}
-                override fun onLikesClick() {}
-                override fun onShareClick() {}
-            }
-        )
+        Surface(
+            color = MaterialTheme.colors.surface.copy(alpha = 0.9f)
+        ) {
+            TweetActionButtons(
+                numComments = uiState.tweet.numComments,
+                numRetweets = uiState.tweet.numRetweets,
+                numLikes = uiState.tweet.numLikes,
+                onActionsClick = object : TweetActionsClick {
+                    override fun onCommentsClick() {}
+                    override fun onRetweetsClick() {}
+                    override fun onLikesClick() {}
+                    override fun onShareClick() {}
+                }
+            )
+        }
     }
 }
