@@ -1,6 +1,7 @@
 package com.rumosoft.feature_timeline.data.repository
 
 import com.rumosoft.feature_timeline.domain.entity.ImageType.Gif
+import com.rumosoft.feature_timeline.domain.entity.ImageType.Video
 import com.rumosoft.feature_timeline.domain.entity.Tweet
 import com.rumosoft.feature_timeline.domain.entity.TweetImage
 import com.rumosoft.feature_timeline.domain.repo_interfaces.TweetsRepository
@@ -176,6 +177,26 @@ class TweetsRepositoryImpl @Inject constructor(
                     id = 11L,
                     url = "https://c.tenor.com/vW__kIdOl0EAAAAC/android-google-android.gif",
                     imageType = Gif
+                ),
+            )
+        ),
+        Tweet(
+            id = 8,
+            username = "Jep Rubio",
+            nickname = "jeprubio",
+            profileImageUrl = "https://pbs.twimg.com/profile_images/1465660161939460100/8LJftrt6_200x200.jpg",
+            message = "Sample Video",
+            numComments = 0,
+            numRetweets = 1,
+            numLikes = 2,
+            elapsedTime = "5 Jun",
+            verified = false,
+            images = listOf(
+                TweetImage(
+                    id = 11L,
+                    url = "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
+                    time = "PT2M6S",
+                    imageType = Video,
                 ),
             )
         ),

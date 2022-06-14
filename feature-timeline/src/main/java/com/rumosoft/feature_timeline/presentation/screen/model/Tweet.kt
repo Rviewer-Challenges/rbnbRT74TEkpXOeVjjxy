@@ -3,10 +3,14 @@ package com.rumosoft.feature_timeline.presentation.screen.model
 import com.rumosoft.feature_timeline.domain.entity.ImageType
 import com.rumosoft.feature_timeline.domain.entity.Tweet
 import com.rumosoft.feature_timeline.domain.entity.TweetImage
+import com.rumosoft.feature_timeline.infrastructure.extensions.formatDuration
 import com.rumosoft.library_components.components.model.ImageTypeUI
 import com.rumosoft.library_components.components.model.ImageUI
 import kotlin.math.ln
 import kotlin.math.pow
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.parseIsoStringOrNull
+
 
 data class TweetUI(
     val id: Long,
@@ -49,6 +53,7 @@ fun TweetImage.toImageUI(): ImageUI {
     return ImageUI(
         id = id,
         url = url,
+        time = time?.let { parseIsoStringOrNull(it)?.formatDuration() },
         imageType = imageType.toScreenImageType()
     )
 }
@@ -57,5 +62,6 @@ fun ImageType.toScreenImageType(): ImageTypeUI {
     return when (this) {
         ImageType.Static -> ImageTypeUI.Static
         ImageType.Gif -> ImageTypeUI.Gif
+        ImageType.Video -> ImageTypeUI.Video
     }
 }

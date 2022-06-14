@@ -236,4 +236,26 @@ internal class TweetContentKtTest : ScreenshotTest {
         composeTestRule.onNodeWithContentDescription(gifContentDescription).assertIsDisplayed()
         compareScreenshot(composeTestRule)
     }
+
+    @Test
+    fun tweetImageVideo_checkVideoDescription() {
+        lateinit var videoContentDescription: String
+        composeTestRule.setContent {
+            videoContentDescription = stringResource(id = R.string.video_image)
+            TweetContent(
+                message = "Video thumbnail",
+                images = listOf(
+                    ImageUI(
+                        id = 1L,
+                        url = "Video thumbnail",
+                        time = "0:51",
+                        imageType = ImageTypeUI.Video
+                    )
+                ),
+            )
+        }
+
+        composeTestRule.onNodeWithContentDescription(videoContentDescription).assertIsDisplayed()
+        compareScreenshot(composeTestRule)
+    }
 }

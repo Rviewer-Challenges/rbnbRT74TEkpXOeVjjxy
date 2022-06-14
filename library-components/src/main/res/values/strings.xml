@@ -10,4 +10,5 @@
     <string name="tweet_image">Tweet image</string>
     <string name="gif_image">GIF Image</string>
     <string name="back">Back</string>
+    <string name="video_image">Video</string>
 </resources>

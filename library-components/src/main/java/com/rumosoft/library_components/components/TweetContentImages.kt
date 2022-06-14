@@ -1,24 +1,21 @@
 package com.rumosoft.library_components.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,12 +25,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.Coil
 import coil.ImageLoader
-import coil.compose.AsyncImage
+import coil.decode.VideoFrameDecoder
 import com.rumosoft.library_components.R
 import com.rumosoft.library_components.components.model.ImageTypeUI.Gif
+import com.rumosoft.library_components.components.model.ImageTypeUI.Video
 import com.rumosoft.library_components.components.model.ImageUI
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
@@ -88,6 +87,7 @@ fun OneImageTweetLayout(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.BottomStart,
     ) {
+        val context = LocalContext.current
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center,
@@ -95,6 +95,16 @@ fun OneImageTweetLayout(
             TweetImage(
                 image = image,
                 contentDescription = stringResource(id = R.string.tweet_image),
+                imageLoader = if (image.imageType == Video) {
+                    remember {
+                        ImageLoader.Builder(context)
+                            .components {
+                                add(VideoFrameDecoder.Factory())
+                            }.build()
+                    }
+                } else Coil.imageLoader(
+                    LocalContext.current
+                ),
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier.fillMaxWidth(),
                 onPictureSelected = onPictureSelected,
@@ -106,30 +116,47 @@ fun OneImageTweetLayout(
                 )
             }
         }
-        if (isGifImage(image)) {
-            val gifContentDescription = stringResource(id = R.string.gif_image)
-            Button(
-                onClick = {},
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = TwitterMirroringTheme.extraColors.black.copy(alpha = 0.7f)
-                ),
-                contentPadding = PaddingValues(horizontal = 4.dp),
-                modifier = Modifier
-                    .semantics { contentDescription = gifContentDescription }
-                    .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp)
-            ) {
-                Text(
+        if (isGifImage(image) || isVideoImage(image)) {
+            if (isGifImage(image)) {
+                ImageLabel(
                     text = "GIF",
-                    color = TwitterMirroringTheme.extraColors.white,
-                    style = TwitterMirroringTheme.typography.h6,
+                    contentDescription = stringResource(id = R.string.gif_image)
+                )
+            } else if (isVideoImage(image)) {
+                ImageLabel(
+                    text = image.time ?: "",
+                    contentDescription = stringResource(id = R.string.video_image)
                 )
             }
         }
     }
 }
 
+@Composable
+private fun ImageLabel(text: String, contentDescription: String) {
+    Text(
+        text = text,
+        color = TwitterMirroringTheme.extraColors.white,
+        style = TwitterMirroringTheme.typography.h6,
+        textAlign = TextAlign.Start,
+        modifier = Modifier
+            .semantics { this.contentDescription = contentDescription }
+            .padding(8.dp)
+            .clip(RoundedCornerShape(4.dp))
+            .background(
+                color = TwitterMirroringTheme.extraColors.black.copy(
+                    alpha = 0.7f
+                )
+            )
+            .padding(horizontal = 4.dp, vertical = 2.dp)
+    )
+}
+
 private fun isGifImage(image: ImageUI) =
     image.imageType == Gif
+
+private fun isVideoImage(image: ImageUI) =
+    image.imageType == Video
 
 @Composable
 fun TwoImagesTweetLayout(
@@ -246,22 +273,3 @@ private fun TwoImagesColumn(
     }
 }
 
-@Composable
-fun TweetImage(
-    image: ImageUI,
-    contentDescription: String,
-    contentScale: ContentScale,
-    modifier: Modifier = Modifier,
-    onPictureSelected: (Long) -> Unit = {},
-    imageLoader: ImageLoader = Coil.imageLoader(LocalContext.current),
-) {
-    AsyncImage(
-        model = image.url,
-        error = painterResource(id = R.drawable.img_error),
-        imageLoader = imageLoader,
-        contentDescription = contentDescription,
-        contentScale = contentScale,
-        modifier = modifier
-            .clickable { onPictureSelected(image.id) },
-    )
-}
