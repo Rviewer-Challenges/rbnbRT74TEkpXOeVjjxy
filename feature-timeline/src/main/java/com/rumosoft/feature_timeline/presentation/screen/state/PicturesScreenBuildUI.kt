@@ -95,7 +95,7 @@ private fun PicturesReady(
                     contentScale = ContentScale.FillWidth,
                     imageLoader = imageLoader,
                     modifier = Modifier.fillMaxWidth(),
-                    onPictureSelected = { },
+                    zoomable = !isGif(image),
                 )
             } else {
                 VideoPlayer(image.url)
@@ -121,6 +121,9 @@ private fun PicturesReady(
 
 private fun isVideo(image: ImageUI) =
     image.imageType == ImageTypeUI.Video
+
+private fun isGif(image: ImageUI) =
+    image.imageType == ImageTypeUI.Gif
 
 @Composable
 fun VideoPlayer(videoUrl: String) {

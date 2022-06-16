@@ -186,9 +186,9 @@ class TweetsRepositoryImpl @Inject constructor(
             nickname = "jeprubio",
             profileImageUrl = "https://pbs.twimg.com/profile_images/1465660161939460100/8LJftrt6_200x200.jpg",
             message = "Sample Video",
-            numComments = 0,
-            numRetweets = 1,
-            numLikes = 2,
+            numComments = 1,
+            numRetweets = 2,
+            numLikes = 1,
             elapsedTime = "5 Jun",
             verified = false,
             images = listOf(
