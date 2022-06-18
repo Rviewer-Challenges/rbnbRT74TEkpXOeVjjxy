@@ -25,7 +25,7 @@ fun TweetImage(
     contentDescription: String,
     contentScale: ContentScale,
     modifier: Modifier = Modifier,
-    zoomable: Boolean = true,
+    zoomable: Boolean = false,
     onPictureSelected: ((Long) -> Unit)? = null,
     imageLoader: ImageLoader = Coil.imageLoader(LocalContext.current),
 ) {
