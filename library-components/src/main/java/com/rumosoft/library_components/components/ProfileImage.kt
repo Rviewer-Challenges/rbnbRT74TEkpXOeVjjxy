@@ -22,6 +22,7 @@ fun ProfileImage(
     AsyncImage(
         model = profileImageUrl,
         placeholder = painterResource(R.drawable.ic_rounded_image_placeholder),
+        error = painterResource(R.drawable.ic_rounded_image_placeholder),
         contentDescription = profileName,
         modifier = Modifier
             .size(55.dp)

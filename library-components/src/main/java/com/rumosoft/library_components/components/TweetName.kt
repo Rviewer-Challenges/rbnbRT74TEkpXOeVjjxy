@@ -2,8 +2,7 @@ package com.rumosoft.library_components.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
@@ -27,26 +26,23 @@ import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 private const val TICK_IMAGE_ID = "tickImageId"
 
 @Composable
-fun TweetHeader(
+fun TweetName(
     username: String,
-    nickname: String,
-    elapsedTime: String,
     showTick: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(end = TwitterMirroringTheme.paddings.medium)
+            .padding(end = TwitterMirroringTheme.paddings.tinyPadding)
     ) {
-        val headerText = getAnnotatedHeaderString(username, showTick, nickname, elapsedTime)
+        val headerText = getAnnotatedHeaderString(username, showTick)
         val inlineContentMap = mapOf(
             TICK_IMAGE_ID to InlineTextContent(
                 Placeholder(20.sp, 20.sp, PlaceholderVerticalAlign.TextCenter)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_tick),
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxHeight(),
                     contentDescription = ""
                 )
             }
@@ -63,8 +59,6 @@ fun TweetHeader(
 internal fun getAnnotatedHeaderString(
     username: String,
     showTick: Boolean,
-    nickname: String,
-    elapsedTime: String
 ) = buildAnnotatedString {
     withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
         append(username)
@@ -73,22 +67,17 @@ internal fun getAnnotatedHeaderString(
         append(" ")
         appendInlineContent(id = TICK_IMAGE_ID)
     }
-    withStyle(style = SpanStyle(TwitterMirroringTheme.colors.onBackground)) {
-        append(" @$nickname ·$elapsedTime")
-    }
 }
 
 @Preview(
     showBackground = true
 )
 @Composable
-fun TweetHeaderPreview() {
+fun TweetNamePreview() {
     val sampleTweet = remember { SampleTweetData.sampleTweet() }
     TwitterMirroringTheme {
-        TweetHeader(
+        TweetName(
             username = sampleTweet.username,
-            nickname = sampleTweet.nickname,
-            elapsedTime = sampleTweet.elapsedTime,
             showTick = true,
         )
     }

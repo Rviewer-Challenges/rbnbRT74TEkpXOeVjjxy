@@ -1,9 +1,11 @@
 package com.rumosoft.library_components.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -17,7 +19,7 @@ import com.rumosoft.library_components.infrastructure.openUrl
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
-fun Tweet(
+fun TweetTimeline(
     tweetId: Long,
     profileImageUrl: String,
     username: String,
@@ -35,31 +37,45 @@ fun Tweet(
         override fun onLikesClick() {}
         override fun onShareClick() {}
     },
+    onTweetSelected: (Long) -> Unit = { _ -> },
     onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = TwitterMirroringTheme.paddings.medium)
-            .padding(top = TwitterMirroringTheme.paddings.medium)
+            .clickable { onTweetSelected(tweetId) }
+            .padding(
+                start = TwitterMirroringTheme.paddings.medium,
+                top = TwitterMirroringTheme.paddings.medium
+            )
     ) {
         ProfileImage(
             profileImageUrl = profileImageUrl,
             profileName = username,
         )
         Column {
-            TweetHeader(
-                username = username,
-                nickname = nickname,
-                elapsedTime = elapsedTime,
-                showTick = verified,
-                modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium)
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                TweetName(
+                    username = username,
+                    showTick = verified,
+                    modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium)
+                )
+                Text(
+                    text = "@$nickname · $elapsedTime",
+                    color = TwitterMirroringTheme.colors.onBackground,
+                    style = TwitterMirroringTheme.typography.body1
+                )
+            }
             TweetContent(
+                tweetId = tweetId,
                 message = message,
                 modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium),
                 images = images,
+                onTweetSelected = onTweetSelected,
                 onHighlightedTextClick = { text, tag ->
                     when (tag) {
                         URL_TAG -> context.openUrl(text)
@@ -77,7 +93,8 @@ fun Tweet(
                 numRetweets = numRetweets,
                 numLikes = numLikes,
                 onActionsClick = onActionsClick,
-                modifier = Modifier.align(Alignment.End)
+                modifier = Modifier
+                    .align(Alignment.End)
             )
         }
     }
@@ -88,10 +105,10 @@ fun Tweet(
     widthDp = 360,
 )
 @Composable
-fun TweetUnverifiedUserPreview() {
+fun TweetTimelineUnverifiedUserPreview() {
     val sampleTweet = remember { sampleTweet() }
     TwitterMirroringTheme {
-        Tweet(
+        TweetTimeline(
             tweetId = 1,
             profileImageUrl = sampleTweet.profileImageUrl,
             username = sampleTweet.username,
@@ -110,10 +127,10 @@ fun TweetUnverifiedUserPreview() {
     widthDp = 360,
 )
 @Composable
-fun TweetVerifiedUserPreview() {
+fun TweetTimelineVerifiedUserPreview() {
     val sampleTweet = remember { sampleTweet() }
     TwitterMirroringTheme {
-        Tweet(
+        TweetTimeline(
             tweetId = 1,
             profileImageUrl = sampleTweet.profileImageUrl,
             username = sampleTweet.username,

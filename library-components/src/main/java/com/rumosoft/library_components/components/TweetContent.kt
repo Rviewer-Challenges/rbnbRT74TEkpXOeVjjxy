@@ -37,11 +37,19 @@ fun TweetContent(
     message: String,
     images: List<ImageUI>,
     modifier: Modifier = Modifier,
+    tweetId: Long = 1L,
     onHighlightedTextClick: (String, String) -> Unit = { _, _ -> },
+    onTweetSelected: (Long) -> Unit = { _ -> },
     onPictureSelected: (Long) -> Unit = {},
 ) {
     Column {
-        TweetContentText(message, modifier, onHighlightedTextClick)
+        TweetContentText(
+            tweetId = tweetId,
+            message = message,
+            modifier = modifier,
+            onTweetSelected = onTweetSelected,
+            onHighlightedTextClick = onHighlightedTextClick
+        )
         TweetContentImages(
             images = images,
             onPictureSelected = onPictureSelected,
@@ -51,8 +59,10 @@ fun TweetContent(
 
 @Composable
 private fun TweetContentText(
+    tweetId: Long,
     message: String,
     modifier: Modifier,
+    onTweetSelected: (Long) -> Unit = { _ -> },
     onHighlightedTextClick: (String, String) -> Unit,
 ) {
     val bodyString = getAnnotatedBodyString(message = message)
@@ -66,6 +76,7 @@ private fun TweetContentText(
                 contentDescription = textTweetContentDescription
             },
         onClick = { offset ->
+            var consumed = false
             val highlightedTags = listOf(URL_TAG, MENTION_TAG, HASHTAG_TAG)
             highlightedTags.forEach { tag ->
                 bodyString.getStringAnnotations(
@@ -73,8 +84,11 @@ private fun TweetContentText(
                     end = offset
                 ).firstOrNull()?.let { annotation ->
                     onHighlightedTextClick(annotation.item, tag)
+                    consumed = true
                 }
             }
+            if (!consumed)
+                onTweetSelected(tweetId)
         },
     )
 }

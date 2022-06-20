@@ -4,40 +4,45 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.rumosoft.feature_timeline.R
 import com.rumosoft.feature_timeline.presentation.screen.state.BuildUI
-import com.rumosoft.feature_timeline.presentation.viewmodel.TimelineViewModel
-import com.rumosoft.feature_timeline.presentation.viewmodel.state.TimelineState
-import com.rumosoft.library_components.components.TwitterTitle
+import com.rumosoft.feature_timeline.presentation.viewmodel.DetailsViewModel
+import com.rumosoft.feature_timeline.presentation.viewmodel.state.DetailsState
+import com.rumosoft.library_components.components.BackNavigationButton
 import com.rumosoft.library_components.components.TwitterTopAppBar
+import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
-fun TimelineRoute(
-    viewModel: TimelineViewModel = hiltViewModel(),
-    onTweetSelected: (Long) -> Unit = { _ -> },
+fun DetailsRoute(
+    viewModel: DetailsViewModel = hiltViewModel(),
+    onBackClick: () -> Unit = {},
     onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     LaunchedEffect(Unit) {
-        viewModel.retrieveTimeline()
+        viewModel.retrieveDetails()
     }
     val uiState by viewModel.uiState.collectAsState()
-    TimelineScreen(
+    DetailsScreen(
         uiState = uiState,
-        onTweetSelected = onTweetSelected,
+        onBackClick = onBackClick,
         onPictureSelected = onPictureSelected,
     )
 }
 
 @Composable
-fun TimelineScreen(
-    uiState: TimelineState,
-    onTweetSelected: (Long) -> Unit = { _ -> },
+fun DetailsScreen(
+    uiState: DetailsState,
+    onBackClick: () -> Unit = {},
     onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     val scaffoldState = rememberScaffoldState()
@@ -46,7 +51,16 @@ fun TimelineScreen(
         scaffoldState = scaffoldState,
         topBar = {
             TwitterTopAppBar(
-                title = { TwitterTitle() }
+                title = {
+                    Text(
+                        stringResource(id = R.string.tweet),
+                        style = TwitterMirroringTheme.typography.h3,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                },
+                navigationIcon = {
+                    BackNavigationButton(onBackClick = onBackClick)
+                }
             )
         }
     ) { innerPadding ->
@@ -55,7 +69,7 @@ fun TimelineScreen(
                 .padding(innerPadding)
                 .fillMaxSize()
         ) {
-            uiState.BuildUI(onTweetSelected, onPictureSelected)
+            uiState.BuildUI(onPictureSelected = onPictureSelected)
         }
     }
 }

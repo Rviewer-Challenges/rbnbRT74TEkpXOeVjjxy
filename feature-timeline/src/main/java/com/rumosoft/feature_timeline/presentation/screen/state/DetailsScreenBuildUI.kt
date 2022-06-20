@@ -3,7 +3,6 @@ package com.rumosoft.feature_timeline.presentation.screen.state
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
@@ -15,31 +14,29 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.rumosoft.feature_timeline.R
-import com.rumosoft.feature_timeline.presentation.viewmodel.state.Loading
-import com.rumosoft.feature_timeline.presentation.viewmodel.state.Ready
-import com.rumosoft.feature_timeline.presentation.viewmodel.state.TimelineState
-import com.rumosoft.library_components.components.TweetTimeline
+import com.rumosoft.feature_timeline.presentation.viewmodel.state.DetailsState
+import com.rumosoft.feature_timeline.presentation.viewmodel.state.DetailsState.Loading
+import com.rumosoft.feature_timeline.presentation.viewmodel.state.DetailsState.Ready
+import com.rumosoft.library_components.components.TweetFullWidth
 import com.rumosoft.library_components.components.model.TweetActionsClick
 import com.rumosoft.library_components.infrastructure.toast
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 @Composable
-fun TimelineState.BuildUI(
-    onTweetSelected: (Long) -> Unit = { _ -> },
-    onPictureSelected: (Long, Long) -> Unit = { _, _ -> }
+fun DetailsState.BuildUI(
+    onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     when (this) {
-        Loading -> TimelineLoading()
-        is Ready -> TimelineReady(
+        Loading -> DetailsLoading()
+        is Ready -> DetailsReady(
             uiState = this,
-            onTweetSelected = onTweetSelected,
             onPictureSelected = onPictureSelected,
         )
     }
 }
 
 @Composable
-private fun TimelineLoading() {
+private fun DetailsLoading() {
     val loadingDescription = stringResource(id = R.string.loading)
     Box(
         contentAlignment = Alignment.Center,
@@ -52,20 +49,15 @@ private fun TimelineLoading() {
 }
 
 @Composable
-private fun TimelineReady(
+private fun DetailsReady(
     uiState: Ready,
-    onTweetSelected: (Long) -> Unit = { _ -> },
     onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     val context = LocalContext.current
-    val timelineContentDescription = stringResource(id = R.string.timeline)
-    LazyColumn(
-        modifier = Modifier.semantics {
-            contentDescription = timelineContentDescription
-        }
-    ) {
-        items(items = uiState.tweets, itemContent = { tweet ->
-            TweetTimeline(
+    val tweet = uiState.tweet
+    LazyColumn {
+        item {
+            TweetFullWidth(
                 tweetId = tweet.id,
                 profileImageUrl = tweet.profileImageUrl,
                 username = tweet.username,
@@ -94,10 +86,9 @@ private fun TimelineReady(
                         context.toast("Share click")
                     }
                 },
-                onTweetSelected = onTweetSelected,
                 onPictureSelected = onPictureSelected,
             )
             Divider(color = TwitterMirroringTheme.colors.secondaryVariant, thickness = 1.dp)
-        })
+        }
     }
 }

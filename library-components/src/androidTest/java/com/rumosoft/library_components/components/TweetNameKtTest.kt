@@ -8,15 +8,13 @@ import com.karumi.shot.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test
 
-internal class TweetHeaderKtTest: ScreenshotTest {
+internal class TweetNameKtTest: ScreenshotTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Test
-    fun tweetHeader_showsElements() {
+    fun tweetName_showsElements() {
         val username = "username"
-        val nickname = "nickname"
-        val elapsedTime = "1h"
         val showTick = true
         lateinit var headerString: AnnotatedString
 
@@ -24,13 +22,9 @@ internal class TweetHeaderKtTest: ScreenshotTest {
             headerString = getAnnotatedHeaderString(
                 username = username,
                 showTick = showTick,
-                nickname = nickname,
-                elapsedTime = elapsedTime
             )
-            TweetHeader(
+            TweetName(
                 username = username,
-                nickname = nickname,
-                elapsedTime = elapsedTime,
                 showTick = showTick
             )
         }

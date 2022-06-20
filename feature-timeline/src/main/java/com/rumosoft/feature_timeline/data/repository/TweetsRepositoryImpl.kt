@@ -44,7 +44,7 @@ class TweetsRepositoryImpl @Inject constructor(
             id = 2,
             username = "Brais Moure",
             nickname = "MoureDev",
-            profileImageUrl = "https://pbs.twimg.com/profile_images/1534960134937530376/8ty6kbOF_200x200.jpg",
+            profileImageUrl = "https://yt3.ggpht.com/ytc/AKedOLRyratMxgvHzoL-15qIZAGXjdALPmEe4jybJhd4MA=s176-c-k-c0x00ffffff-no-rj",
             message = "Mañana hay concierto con @_nasch_ y @powerhdeleon \uD83E\uDD18\n" +
                     "\n" +
                     "Enlace al vídeo y horario:\n" +
@@ -108,7 +108,7 @@ class TweetsRepositoryImpl @Inject constructor(
             id = 5,
             username = "Carol",
             nickname = "carolmusyoka_",
-            profileImageUrl = "https://pbs.twimg.com/profile_images/1530554079268818944/JCnbcEVP_200x200.jpg",
+            profileImageUrl = "https://pbs.twimg.com/profile_images/1535940679595171840/2T0-ouUT_200x200.jpg",
             message = "Been working on something exciting with #JetpackCompose \uD83D\uDE0E. It's still a work in progress. \n" +
                     "\uD83D\uDCF8 credit by @lets_drift",
             numComments = 9,
