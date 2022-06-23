@@ -10,6 +10,7 @@ data class Tweet(
     val numComments: String,
     val numRetweets: String,
     val numLikes: String,
-    val elapsedTime: String,
+    val shortElapsedTime: String,
+    val longElapsedTime: String,
     val images: List<ImageUI>,
 )

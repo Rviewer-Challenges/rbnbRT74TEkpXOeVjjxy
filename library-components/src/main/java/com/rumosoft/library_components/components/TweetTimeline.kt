@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -64,11 +63,7 @@ fun TweetTimeline(
                     showTick = verified,
                     modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium)
                 )
-                Text(
-                    text = "@$nickname · $elapsedTime",
-                    color = TwitterMirroringTheme.colors.onBackground,
-                    style = TwitterMirroringTheme.typography.body1
-                )
+                TweetStackedHeader(message = "@$nickname · $elapsedTime")
             }
             TweetContent(
                 tweetId = tweetId,
@@ -117,7 +112,7 @@ fun TweetTimelineUnverifiedUserPreview() {
             numComments = sampleTweet.numComments,
             numRetweets = sampleTweet.numRetweets,
             numLikes = sampleTweet.numLikes,
-            elapsedTime = sampleTweet.elapsedTime,
+            elapsedTime = sampleTweet.shortElapsedTime,
         )
     }
 }
@@ -136,7 +131,7 @@ fun TweetTimelineVerifiedUserPreview() {
             username = sampleTweet.username,
             nickname = sampleTweet.nickname,
             message = sampleTweet.message,
-            elapsedTime = sampleTweet.elapsedTime,
+            elapsedTime = sampleTweet.shortElapsedTime,
             numComments = sampleTweet.numComments,
             numRetweets = sampleTweet.numRetweets,
             numLikes = sampleTweet.numLikes,

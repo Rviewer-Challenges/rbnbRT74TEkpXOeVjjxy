@@ -89,6 +89,13 @@ fun TweetFullWidth(
                 onPictureSelected(tweetId, imageId)
             },
         )
+        TweetStackedHeader(
+            message = elapsedTime,
+            modifier = Modifier.padding(
+                top = TwitterMirroringTheme.paddings.medium,
+                start = TwitterMirroringTheme.paddings.medium
+            )
+        )
         TweetActionButtons(
             numComments = numComments,
             numRetweets = numRetweets,
@@ -116,7 +123,7 @@ fun TweetFullWidthUnverifiedUserPreview() {
             numComments = sampleTweet.numComments,
             numRetweets = sampleTweet.numRetweets,
             numLikes = sampleTweet.numLikes,
-            elapsedTime = sampleTweet.elapsedTime,
+            elapsedTime = sampleTweet.shortElapsedTime,
         )
     }
 }
@@ -135,7 +142,7 @@ fun TweetFullWidthVerifiedUserPreview() {
             username = sampleTweet.username,
             nickname = sampleTweet.nickname,
             message = sampleTweet.message,
-            elapsedTime = sampleTweet.elapsedTime,
+            elapsedTime = sampleTweet.shortElapsedTime,
             numComments = sampleTweet.numComments,
             numRetweets = sampleTweet.numRetweets,
             numLikes = sampleTweet.numLikes,

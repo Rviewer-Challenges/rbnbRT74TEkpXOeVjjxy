@@ -71,7 +71,7 @@ private fun TimelineReady(
                 username = tweet.username,
                 nickname = tweet.nickname,
                 message = tweet.message,
-                elapsedTime = tweet.elapsedTime,
+                elapsedTime = tweet.shortElapsedTime,
                 numComments = tweet.numComments,
                 numRetweets = tweet.numRetweets,
                 numLikes = tweet.numLikes,

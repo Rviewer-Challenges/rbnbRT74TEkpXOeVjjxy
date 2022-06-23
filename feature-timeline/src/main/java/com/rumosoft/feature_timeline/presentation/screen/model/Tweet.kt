@@ -4,11 +4,16 @@ import com.rumosoft.feature_timeline.domain.entity.ImageType
 import com.rumosoft.feature_timeline.domain.entity.Tweet
 import com.rumosoft.feature_timeline.domain.entity.TweetImage
 import com.rumosoft.feature_timeline.infrastructure.extensions.formatDuration
+import com.rumosoft.feature_timeline.presentation.screen.model.TweetUI.Companion.longFormatter
+import com.rumosoft.feature_timeline.presentation.screen.model.TweetUI.Companion.shortFormatter
 import com.rumosoft.library_components.components.model.ImageTypeUI
 import com.rumosoft.library_components.components.model.ImageUI
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import kotlin.math.ln
 import kotlin.math.pow
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.parseIsoStringOrNull
 
 
@@ -21,10 +26,16 @@ data class TweetUI(
     val numComments: String,
     val numRetweets: String,
     val numLikes: String,
-    val elapsedTime: String,
+    val shortElapsedTime: String,
+    val longElapsedTime: String,
     val verified: Boolean,
     val images: List<ImageUI>,
-)
+) {
+    companion object {
+        val shortFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM")
+        val longFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm · dd MMM yy")
+    }
+}
 
 fun Tweet.toTweetUI(): TweetUI {
     fun getFormattedNumber(count: Long): String {
@@ -43,11 +54,17 @@ fun Tweet.toTweetUI(): TweetUI {
         numComments = getFormattedNumber(numComments),
         numRetweets = getFormattedNumber(numRetweets),
         numLikes = getFormattedNumber(numLikes),
-        elapsedTime = elapsedTime,
+        shortElapsedTime = posted.formatToLocalDate(shortFormatter),
+        longElapsedTime = posted.formatToLocalDate(longFormatter),
         verified = verified,
         images = images.map { it.toImageUI() },
     )
 }
+
+fun Instant.formatToLocalDate(longFormatter: DateTimeFormatter?): String =
+    LocalDateTime
+        .ofInstant(this, ZoneId.systemDefault())
+        .format(longFormatter)
 
 fun TweetImage.toImageUI(): ImageUI {
     return ImageUI(

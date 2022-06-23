@@ -26,7 +26,7 @@ internal class TweetFullWidthTest : ScreenshotTest {
                     numComments = sampleTweet.numComments,
                     numRetweets = sampleTweet.numRetweets,
                     numLikes = sampleTweet.numLikes,
-                    elapsedTime = sampleTweet.elapsedTime,
+                    elapsedTime = sampleTweet.longElapsedTime,
                 )
             }
         }
@@ -48,7 +48,7 @@ internal class TweetFullWidthTest : ScreenshotTest {
                     numComments = sampleTweet.numComments,
                     numRetweets = sampleTweet.numRetweets,
                     numLikes = sampleTweet.numLikes,
-                    elapsedTime = sampleTweet.elapsedTime,
+                    elapsedTime = sampleTweet.longElapsedTime,
                     verified = true,
                 )
             }

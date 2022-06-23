@@ -49,7 +49,7 @@ internal class PicturesViewModelTest {
             numComments = 1,
             numRetweets = 2,
             numLikes = 3,
-            elapsedTime = "elapsedtime",
+            posted = "elapsedtime",
             verified = false,
             images = listOf()
         )

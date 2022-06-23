@@ -8,6 +8,9 @@ import com.rumosoft.feature_timeline.domain.repo_interfaces.TweetsRepository
 import com.rumosoft.feature_timeline.infrastructure.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 class TweetsRepositoryImpl @Inject constructor(
@@ -37,7 +40,7 @@ class TweetsRepositoryImpl @Inject constructor(
             numComments = 62900,
             numRetweets = 92600,
             numLikes = 494600,
-            elapsedTime = "30 Mar",
+            posted = dateTimeToInstant("2021-04-01", "17:50"),
             verified = true,
         ),
         Tweet(
@@ -52,7 +55,7 @@ class TweetsRepositoryImpl @Inject constructor(
             numComments = 2,
             numRetweets = 4,
             numLikes = 33,
-            elapsedTime = "1 Jun",
+            posted = dateTimeToInstant("2021-06-01", "21:09"),
             verified = true,
         ),
         Tweet(
@@ -66,7 +69,7 @@ class TweetsRepositoryImpl @Inject constructor(
             numComments = 10,
             numRetweets = 70,
             numLikes = 733,
-            elapsedTime = "3 Jun",
+            posted = dateTimeToInstant("2021-06-02", "22:51"),
             verified = false,
             images = listOf(
                 TweetImage(
@@ -91,7 +94,7 @@ class TweetsRepositoryImpl @Inject constructor(
             numComments = 32,
             numRetweets = 363,
             numLikes = 3265,
-            elapsedTime = "30 Apr",
+            posted = dateTimeToInstant("2021-04-30", "12:51"),
             verified = false,
             images = listOf(
                 TweetImage(
@@ -114,7 +117,7 @@ class TweetsRepositoryImpl @Inject constructor(
             numComments = 9,
             numRetweets = 14,
             numLikes = 87,
-            elapsedTime = "6 Jun",
+            posted = dateTimeToInstant("2021-06-06", "10:43"),
             verified = false,
             images = listOf(
                 TweetImage(
@@ -140,7 +143,7 @@ class TweetsRepositoryImpl @Inject constructor(
             numComments = 0,
             numRetweets = 0,
             numLikes = 20,
-            elapsedTime = "26 May",
+            posted = dateTimeToInstant("2021-05-26", "19:16"),
             verified = false,
             images = listOf(
                 TweetImage(
@@ -170,7 +173,7 @@ class TweetsRepositoryImpl @Inject constructor(
             numComments = 0,
             numRetweets = 1,
             numLikes = 2,
-            elapsedTime = "5 Jun",
+            posted = dateTimeToInstant("2021-06-05", "11:20"),
             verified = false,
             images = listOf(
                 TweetImage(
@@ -189,7 +192,7 @@ class TweetsRepositoryImpl @Inject constructor(
             numComments = 1,
             numRetweets = 2,
             numLikes = 1,
-            elapsedTime = "5 Jun",
+            posted = dateTimeToInstant("2021-06-05", "15:20"),
             verified = false,
             images = listOf(
                 TweetImage(
@@ -201,4 +204,10 @@ class TweetsRepositoryImpl @Inject constructor(
             )
         ),
     )
+
+    private fun dateTimeToInstant(strDate: String, strTime: String): Instant {
+        val strDateTime = strDate + "T" + strTime
+        val ldt: LocalDateTime = LocalDateTime.parse(strDateTime)
+        return ldt.atOffset(ZoneOffset.UTC).toInstant()
+    }
 }

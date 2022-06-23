@@ -1,5 +1,7 @@
 package com.rumosoft.feature_timeline.domain.entity
 
+import java.time.Instant
+
 data class Tweet(
     val id: Long,
     val username: String,
@@ -9,7 +11,7 @@ data class Tweet(
     val numComments: Long,
     val numRetweets: Long,
     val numLikes: Long,
-    val elapsedTime: String,
+    val posted: Instant,
     val verified: Boolean,
     val images: List<TweetImage> = emptyList(),
 )

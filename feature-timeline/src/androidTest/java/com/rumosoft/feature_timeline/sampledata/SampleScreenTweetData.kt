@@ -1,10 +1,14 @@
 package com.rumosoft.feature_timeline.sampledata
 
 import com.rumosoft.feature_timeline.presentation.screen.model.TweetUI
+import com.rumosoft.feature_timeline.presentation.screen.model.TweetUI.Companion.longFormatter
+import com.rumosoft.feature_timeline.presentation.screen.model.formatToLocalDate
+import java.time.Instant
 
 object SampleScreenTweetData {
     fun sampleScreenTweet(): TweetUI =
         TweetUI(
+            id = 1,
             profileImageUrl = "",
             username = "User Name",
             nickname = "nickname",
@@ -12,7 +16,8 @@ object SampleScreenTweetData {
             numComments = "62.9K",
             numRetweets = "92.6K",
             numLikes = "494.6K",
-            elapsedTime = "3h",
+            shortElapsedTime = "3h",
+            longElapsedTime = Instant.now().minusSeconds(3 * 3600L).formatToLocalDate(longFormatter),
             verified = true,
             images = emptyList(),
         )

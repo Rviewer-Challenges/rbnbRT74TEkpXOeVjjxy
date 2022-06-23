@@ -63,7 +63,7 @@ private fun DetailsReady(
                 username = tweet.username,
                 nickname = tweet.nickname,
                 message = tweet.message,
-                elapsedTime = tweet.elapsedTime,
+                elapsedTime = tweet.longElapsedTime,
                 numComments = tweet.numComments,
                 numRetweets = tweet.numRetweets,
                 numLikes = tweet.numLikes,
