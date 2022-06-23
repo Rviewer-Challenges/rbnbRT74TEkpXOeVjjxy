@@ -6,6 +6,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -23,11 +24,11 @@ import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
 private const val MAX_TWEET_LENGTH = 280
 private const val MENTIONS_REGEX =
-    "(?<=^|(?<=[^a-zA-Z0-9-\\.]))@[A-Za-z0-9-\\_]+"
+    "(?<=^|(?<=[^a-zA-Z\\d-\\.]))@[a-zA-Z\\d-\\_]+"
 private const val HASHTAGS_REGEX =
-    "(?<=^|(?<=[^a-zA-Z0-9-\\.]))#[A-Za-z0-9-\\_]+"
+    "(?<=^|(?<=[^a-zA-Z\\d-\\.]))#[a-zA-Z\\d-\\_]+"
 private const val URL_REGEX =
-    "(https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\\.[^\\s]{2,}|https?:\\/\\/(?:www\\.|(?!www))[a-zA-Z0-9]+\\.[^\\s]{2,}|www\\.[a-zA-Z0-9]+\\.[^\\s]{2,})"
+    "(https?:\\//(?:www\\.|(?!www))[a-zA-Z\\d][a-zA-Z\\d-]+[a-zA-Z\\d]\\.\\S{2,}|www\\.[a-zA-Z\\d][a-zA-Z\\d-]+[a-zA-Z\\d]\\.\\S{2,}|https?:\\//(?:www\\.|(?!www))[a-zA-Z\\d]+\\.\\S{2,}|www\\.[a-zA-Z\\d]+\\.\\S{2,})"
 internal const val URL_TAG = "urlTag"
 private const val MENTION_TAG = "mentionTag"
 private const val HASHTAG_TAG = "hashtagTag"
@@ -61,12 +62,14 @@ fun TweetContent(
 private fun TweetContentText(
     tweetId: Long,
     message: String,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onTweetSelected: (Long) -> Unit = { _ -> },
     onHighlightedTextClick: (String, String) -> Unit,
 ) {
-    val bodyString = getAnnotatedBodyString(message = message)
+    val highlightColor = TwitterMirroringTheme.extraColors.blue
+    val bodyString = remember { getAnnotatedBodyString(message = message, highlightColor = highlightColor) }
     val textTweetContentDescription = stringResource(R.string.tweet_text)
+
     ClickableText(
         text = bodyString,
         style = TwitterMirroringTheme.typography.body1,
@@ -93,10 +96,11 @@ private fun TweetContentText(
     )
 }
 
-@Composable
+
 internal fun getAnnotatedBodyString(
-    message: String
-) = buildAnnotatedString {
+    message: String,
+    highlightColor: Color,
+): AnnotatedString = buildAnnotatedString {
     val substring =
         if (message.length > MAX_TWEET_LENGTH) message.substring(0, MAX_TWEET_LENGTH) else message
     val toHighlightRegex =
@@ -107,70 +111,74 @@ internal fun getAnnotatedBodyString(
     if (toHighlight.isNotEmpty()) {
         notHighlights.zip(toHighlight + "") { message, highlight ->
             append(message)
-            AddHighlightedChunk(highlight)
+            addHighlightedChunk(highlight, highlightColor)
         }
     } else {
         append(substring)
     }
 }
 
-@Composable
 private fun getElementsToHighlight(
     toHighlightRegex: Regex,
-    substring: String
+    substring: String,
 ) = toHighlightRegex.findAll(substring).map { it.value }.toList()
 
-@Composable
-private fun AnnotatedString.Builder.HighlightText(highlight: String) {
-    withStyle(style = SpanStyle(TwitterMirroringTheme.extraColors.blue)) {
+private fun AnnotatedString.Builder.highlightText(
+    highlight: String, highlightColor: Color
+) {
+    withStyle(style = SpanStyle(highlightColor)) {
         append(highlight)
     }
 }
 
-@Composable
 private fun getNotHighlightedElements(
     substring: String,
     toHighlightRegex: Regex
 ) = substring.split(toHighlightRegex)
 
-@Composable
-private fun AnnotatedString.Builder.AddHighlightedChunk(highlight: String) {
+private fun AnnotatedString.Builder.addHighlightedChunk(
+    highlight: String,
+    highlightColor: Color,
+) {
     if (highlight.isNotEmpty()) {
         when {
             isUrl(highlight) -> {
-                Highlight(
+                highlight(
                     text = highlight,
                     tag = URL_TAG,
                     textTransformation = ::stripWebPrefix,
+                    highlightColor = highlightColor,
                 )
             }
             isMention(highlight) -> {
-                Highlight(
+                highlight(
                     text = highlight,
-                    tag = MENTION_TAG
+                    tag = MENTION_TAG,
+                    highlightColor = highlightColor,
                 )
             }
             else -> {
-                Highlight(
+                highlight(
                     text = highlight,
-                    tag = HASHTAG_TAG
+                    tag = HASHTAG_TAG,
+                    highlightColor = highlightColor,
                 )
             }
         }
     }
 }
 
-@Composable
-private fun AnnotatedString.Builder.Highlight(
+private fun AnnotatedString.Builder.highlight(
     text: String,
     tag: String,
-    textTransformation: (String) -> String = { it }
+    textTransformation: (String) -> String = { it },
+    highlightColor: Color,
 ) {
     pushStringAnnotation(
         tag = tag,
         annotation = text
     )
-    HighlightText(textTransformation(text))
+    highlightText(textTransformation(text), highlightColor)
     pop()
 }
 
