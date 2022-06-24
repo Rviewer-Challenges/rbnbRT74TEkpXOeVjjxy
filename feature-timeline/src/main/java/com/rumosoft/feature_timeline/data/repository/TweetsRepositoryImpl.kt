@@ -38,8 +38,9 @@ class TweetsRepositoryImpl @Inject constructor(
             profileImageUrl = "https://pbs.twimg.com/profile_images/1354481096742768640/axJjcdix_400x400.jpg",
             message = "You good?",
             numComments = 62900,
-            numRetweets = 92600,
-            numLikes = 494600,
+            numRetweets = 42900,
+            numQuoteTweets = 49700,
+            numLikes = 496000,
             posted = dateTimeToInstant("2021-04-01", "17:50"),
             verified = true,
         ),
@@ -53,7 +54,8 @@ class TweetsRepositoryImpl @Inject constructor(
                     "Enlace al vídeo y horario:\n" +
                     "\uD83D\uDCFA https://youtu.be/Cp4LHJMPq3U",
             numComments = 2,
-            numRetweets = 4,
+            numRetweets = 3,
+            numQuoteTweets = 1,
             numLikes = 33,
             posted = dateTimeToInstant("2021-06-01", "21:09"),
             verified = true,
@@ -66,9 +68,10 @@ class TweetsRepositoryImpl @Inject constructor(
             message = "\uD83D\uDCB0 http://configure8.io\n" +
                     "Colleague: why do you have 23 browser tabs open?\n" +
                     "Me:",
-            numComments = 10,
+            numComments = 11,
             numRetweets = 70,
-            numLikes = 733,
+            numQuoteTweets = 5,
+            numLikes = 764,
             posted = dateTimeToInstant("2021-06-02", "22:51"),
             verified = false,
             images = listOf(
@@ -91,9 +94,10 @@ class TweetsRepositoryImpl @Inject constructor(
                     "✅ Like\n" +
                     "✅ Follow me\n" +
                     "✅ Reply which book you want",
-            numComments = 32,
-            numRetweets = 363,
-            numLikes = 3265,
+            numComments = 48,
+            numRetweets = 10,
+            numQuoteTweets = 1,
+            numLikes = 148,
             posted = dateTimeToInstant("2021-04-30", "12:51"),
             verified = false,
             images = listOf(
@@ -114,9 +118,10 @@ class TweetsRepositoryImpl @Inject constructor(
             profileImageUrl = "https://pbs.twimg.com/profile_images/1535940679595171840/2T0-ouUT_200x200.jpg",
             message = "Been working on something exciting with #JetpackCompose \uD83D\uDE0E. It's still a work in progress. \n" +
                     "\uD83D\uDCF8 credit by @lets_drift",
-            numComments = 9,
-            numRetweets = 14,
-            numLikes = 87,
+            numComments = 12,
+            numRetweets = 16,
+            numQuoteTweets = 1,
+            numLikes = 108,
             posted = dateTimeToInstant("2021-06-06", "10:43"),
             verified = false,
             images = listOf(
@@ -142,6 +147,7 @@ class TweetsRepositoryImpl @Inject constructor(
             message = "Today was fun! Android themed mini golf and discussions on Compose \uD83D\uDC4C #AndroidRoadshow",
             numComments = 0,
             numRetweets = 0,
+            numQuoteTweets = 0,
             numLikes = 20,
             posted = dateTimeToInstant("2021-05-26", "19:16"),
             verified = false,
@@ -172,6 +178,7 @@ class TweetsRepositoryImpl @Inject constructor(
             message = "\uD83E\uDD16",
             numComments = 0,
             numRetweets = 1,
+            numQuoteTweets = 0,
             numLikes = 2,
             posted = dateTimeToInstant("2021-06-05", "11:20"),
             verified = false,
@@ -190,7 +197,8 @@ class TweetsRepositoryImpl @Inject constructor(
             profileImageUrl = "https://pbs.twimg.com/profile_images/1465660161939460100/8LJftrt6_200x200.jpg",
             message = "Sample Video",
             numComments = 1,
-            numRetweets = 2,
+            numRetweets = 1,
+            numQuoteTweets = 1,
             numLikes = 1,
             posted = dateTimeToInstant("2021-06-05", "15:20"),
             verified = false,

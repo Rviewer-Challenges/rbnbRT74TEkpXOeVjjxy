@@ -24,7 +24,7 @@ internal class TweetTimelineTest : ScreenshotTest {
                     nickname = sampleTweet.nickname,
                     message = sampleTweet.message,
                     numComments = sampleTweet.numComments,
-                    numRetweets = sampleTweet.numRetweets,
+                    totalRetweets = sampleTweet.numRetweets,
                     numLikes = sampleTweet.numLikes,
                     elapsedTime = sampleTweet.shortElapsedTime,
                 )
@@ -46,7 +46,7 @@ internal class TweetTimelineTest : ScreenshotTest {
                     nickname = sampleTweet.nickname,
                     message = sampleTweet.message,
                     numComments = sampleTweet.numComments,
-                    numRetweets = sampleTweet.numRetweets,
+                    totalRetweets = sampleTweet.numRetweets,
                     numLikes = sampleTweet.numLikes,
                     elapsedTime = sampleTweet.shortElapsedTime,
                     verified = true,

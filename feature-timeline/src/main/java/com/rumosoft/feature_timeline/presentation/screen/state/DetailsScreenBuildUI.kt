@@ -66,6 +66,7 @@ private fun DetailsReady(
                 elapsedTime = tweet.longElapsedTime,
                 numComments = tweet.numComments,
                 numRetweets = tweet.numRetweets,
+                numQuoteTweets = tweet.numQuoteTweets,
                 numLikes = tweet.numLikes,
                 verified = tweet.verified,
                 images = tweet.images,

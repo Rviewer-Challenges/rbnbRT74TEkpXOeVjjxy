@@ -12,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rumosoft.library_components.R
@@ -32,6 +31,7 @@ fun TweetFullWidth(
     elapsedTime: String,
     numComments: String,
     numRetweets: String,
+    numQuoteTweets: String,
     numLikes: String,
     verified: Boolean = false,
     images: List<ImageUI> = emptyList(),
@@ -100,10 +100,7 @@ fun TweetFullWidth(
             )
         )
         TweetStats(
-            listOf(
-                numRetweets to stringResource(id = R.string.retweets),
-                numLikes to stringResource(id = R.string.likes),
-            )
+            statsList(numRetweets, numQuoteTweets, numLikes)
         )
         TweetActionButtons(
             numComments = numComments,
@@ -115,6 +112,17 @@ fun TweetFullWidth(
         )
     }
 }
+
+@Composable
+private fun statsList(
+    numRetweets: String,
+    numQuoteTweets: String,
+    numLikes: String
+) = mutableListOf<Pair<String, String>>().apply {
+    if (numRetweets.isNotEmpty()) add(numRetweets to stringResource(id = R.string.retweets))
+    if (numQuoteTweets.isNotEmpty()) add(numQuoteTweets to stringResource(id = R.string.quote_tweets))
+    if (numLikes.isNotEmpty()) add(numLikes to stringResource(id = R.string.likes))
+}.toList()
 
 @Preview(
     showBackground = true,
@@ -132,6 +140,7 @@ fun TweetFullWidthUnverifiedUserPreview() {
             message = sampleTweet.message,
             numComments = sampleTweet.numComments,
             numRetweets = sampleTweet.numRetweets,
+            numQuoteTweets = sampleTweet.numQuoteTweets,
             numLikes = sampleTweet.numLikes,
             elapsedTime = sampleTweet.shortElapsedTime,
         )
@@ -155,6 +164,7 @@ fun TweetFullWidthVerifiedUserPreview() {
             elapsedTime = sampleTweet.shortElapsedTime,
             numComments = sampleTweet.numComments,
             numRetweets = sampleTweet.numRetweets,
+            numQuoteTweets = sampleTweet.numQuoteTweets,
             numLikes = sampleTweet.numLikes,
             verified = true,
         )

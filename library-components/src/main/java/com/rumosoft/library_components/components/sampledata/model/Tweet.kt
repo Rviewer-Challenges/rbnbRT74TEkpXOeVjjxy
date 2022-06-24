@@ -9,6 +9,8 @@ data class Tweet(
     val message: String,
     val numComments: String,
     val numRetweets: String,
+    val numQuoteTweets: String,
+    val totalRetweets: String,
     val numLikes: String,
     val shortElapsedTime: String,
     val longElapsedTime: String,

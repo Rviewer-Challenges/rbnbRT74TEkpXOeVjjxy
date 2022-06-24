@@ -25,6 +25,7 @@ internal class TweetFullWidthTest : ScreenshotTest {
                     message = sampleTweet.message,
                     numComments = sampleTweet.numComments,
                     numRetweets = sampleTweet.numRetweets,
+                    numQuoteTweets = sampleTweet.numQuoteTweets,
                     numLikes = sampleTweet.numLikes,
                     elapsedTime = sampleTweet.longElapsedTime,
                 )
@@ -47,6 +48,7 @@ internal class TweetFullWidthTest : ScreenshotTest {
                     message = sampleTweet.message,
                     numComments = sampleTweet.numComments,
                     numRetweets = sampleTweet.numRetweets,
+                    numQuoteTweets = sampleTweet.numQuoteTweets,
                     numLikes = sampleTweet.numLikes,
                     elapsedTime = sampleTweet.longElapsedTime,
                     verified = true,

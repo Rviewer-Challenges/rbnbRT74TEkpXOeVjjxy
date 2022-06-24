@@ -26,7 +26,7 @@ fun TweetTimeline(
     message: String,
     elapsedTime: String,
     numComments: String,
-    numRetweets: String,
+    totalRetweets: String,
     numLikes: String,
     verified: Boolean = false,
     images: List<ImageUI> = emptyList(),
@@ -85,7 +85,7 @@ fun TweetTimeline(
             )
             TweetActionButtons(
                 numComments = numComments,
-                numRetweets = numRetweets,
+                numRetweets = totalRetweets,
                 numLikes = numLikes,
                 onActionsClick = onActionsClick,
                 modifier = Modifier
@@ -110,7 +110,7 @@ fun TweetTimelineUnverifiedUserPreview() {
             nickname = sampleTweet.nickname,
             message = sampleTweet.message,
             numComments = sampleTweet.numComments,
-            numRetweets = sampleTweet.numRetweets,
+            totalRetweets = sampleTweet.totalRetweets,
             numLikes = sampleTweet.numLikes,
             elapsedTime = sampleTweet.shortElapsedTime,
         )
@@ -133,7 +133,7 @@ fun TweetTimelineVerifiedUserPreview() {
             message = sampleTweet.message,
             elapsedTime = sampleTweet.shortElapsedTime,
             numComments = sampleTweet.numComments,
-            numRetweets = sampleTweet.numRetweets,
+            totalRetweets = sampleTweet.totalRetweets,
             numLikes = sampleTweet.numLikes,
             verified = true,
         )

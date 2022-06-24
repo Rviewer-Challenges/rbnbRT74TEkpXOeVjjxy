@@ -10,6 +10,7 @@ data class Tweet(
     val message: String,
     val numComments: Long,
     val numRetweets: Long,
+    val numQuoteTweets: Long,
     val numLikes: Long,
     val posted: Instant,
     val verified: Boolean,
