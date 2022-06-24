@@ -1,6 +1,7 @@
 package com.rumosoft.library_components.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,16 +29,19 @@ import kotlin.random.Random
 fun ActionButton(
     action: TweetAction,
     modifier: Modifier = Modifier,
+    showValue: Boolean = true,
     onClick: () -> Unit = {},
 ) {
     CompositionLocalProvider(LocalRippleTheme provides ClearRippleTheme) {
         Row(
             modifier = modifier
                 .height(40.dp)
+                .padding(start = 11.dp)
                 .clickable {
                     onClick()
                 },
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = if (showValue) Arrangement.Start else Arrangement.Center
         ) {
             Icon(
                 painter = painterResource(id = action.iconResource),
@@ -46,7 +50,7 @@ fun ActionButton(
                 modifier = Modifier
                     .size(18.dp),
             )
-            if (action is TweetActionWithValue && action.value.isNotEmpty()) {
+            if (showValue && action is TweetActionWithValue && action.value.isNotEmpty()) {
                 Text(
                     text = action.value,
                     style = TwitterMirroringTheme.typography.caption,

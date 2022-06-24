@@ -11,8 +11,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.rumosoft.library_components.R
 import com.rumosoft.library_components.components.model.ImageUI
 import com.rumosoft.library_components.components.model.TweetActionsClick
 import com.rumosoft.library_components.components.sampledata.SampleTweetData.sampleTweet
@@ -96,10 +99,17 @@ fun TweetFullWidth(
                 start = TwitterMirroringTheme.paddings.medium
             )
         )
+        TweetStats(
+            listOf(
+                numRetweets to stringResource(id = R.string.retweets),
+                numLikes to stringResource(id = R.string.likes),
+            )
+        )
         TweetActionButtons(
             numComments = numComments,
             numRetweets = numRetweets,
             numLikes = numLikes,
+            showValue = false,
             onActionsClick = onActionsClick,
             modifier = Modifier.align(Alignment.End)
         )

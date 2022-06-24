@@ -1,6 +1,5 @@
 package com.rumosoft.library_components.components
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,31 +20,35 @@ fun TweetActionButtons(
     numRetweets: String,
     numLikes: String,
     modifier: Modifier = Modifier,
+    showValue: Boolean = true,
     onActionsClick: TweetActionsClick,
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
-            .padding(horizontal = 11.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(end = 11.dp),
     ) {
         ActionButton(
             action = TweetActionComments(numComments),
             modifier = Modifier.weight(1f),
+            showValue = showValue,
             onClick = onActionsClick::onCommentsClick,
         )
         ActionButton(
             action = TweetActionRetweet(numRetweets),
             modifier = Modifier.weight(1f),
+            showValue = showValue,
             onClick = onActionsClick::onRetweetsClick,
         )
         ActionButton(
             action = TweetActionLike(numLikes),
             modifier = Modifier.weight(1f),
+            showValue = showValue,
             onClick = onActionsClick::onLikesClick,
         )
         ActionButton(
             action = TweetActionShare(),
             modifier = Modifier.weight(1f),
+            showValue = showValue,
             onClick = onActionsClick::onShareClick,
         )
     }
