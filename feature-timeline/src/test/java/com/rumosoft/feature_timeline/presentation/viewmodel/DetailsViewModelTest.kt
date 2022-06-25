@@ -2,6 +2,7 @@ package com.rumosoft.feature_timeline.presentation.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import com.rumosoft.feature_timeline.domain.entity.Tweet
+import com.rumosoft.feature_timeline.domain.usecase.GetCommentsUseCase
 import com.rumosoft.feature_timeline.domain.usecase.GetTweetUseCase
 import com.rumosoft.feature_timeline.presentation.navigation.destination.PicturesDestination
 import io.mockk.coEvery
@@ -15,29 +16,29 @@ import java.time.Instant
 
 @ExperimentalCoroutinesApi
 @ExtendWith(TestCoroutineExtension::class)
-internal class PicturesViewModelTest {
+internal class DetailsViewModelTest {
     @Test
-    fun `retrievePictures on View Model should invoke getTweetUseCase`() = test {
+    fun `retrieveTweetDetails on View Model should invoke getTweetUseCase`() = test {
         runTest {
-            `given getTweetUseCase returns sampleTweet when invoked`()
+            coEvery { getTweetUseCase(tweetId) } returns sampleTweet()
+            coEvery { getCommentsUseCase(tweetId) } returns listOf(sampleTweet())
 
-            `when retrievePictures is invoked on the View Model`()
+            viewModel.retrieveTweetDetails()
 
-            `then getTweetUseCase is invoked`()
+            coVerify { getTweetUseCase(tweetId) }
         }
     }
 
-    private fun TestScope.`given getTweetUseCase returns sampleTweet when invoked`() {
-        coEvery { getTweetUseCase(tweetId) } returns
-                sampleTweet()
-    }
+    @Test
+    fun `retrieveTweetDetails on View Model should invoke getCommentsUseCase`() = test {
+        runTest {
+            coEvery { getTweetUseCase(tweetId) } returns sampleTweet()
+            coEvery { getCommentsUseCase(tweetId) } returns listOf(sampleTweet())
 
-    private fun TestScope.`when retrievePictures is invoked on the View Model`() {
-        viewModel.retrievePictures()
-    }
+            viewModel.retrieveTweetDetails()
 
-    private fun TestScope.`then getTweetUseCase is invoked`() {
-        coVerify { getTweetUseCase(tweetId) }
+            coVerify { getCommentsUseCase(tweetId) }
+        }
     }
 
     private fun TestScope.sampleTweet() =
@@ -62,14 +63,14 @@ internal class PicturesViewModelTest {
 
     private class TestScope(
         val tweetId: Long = 123L,
-        val pictureId: Long = 123456L,
         val getTweetUseCase: GetTweetUseCase = mockk(),
-        val viewModel: PicturesViewModel = PicturesViewModel(
+        val getCommentsUseCase: GetCommentsUseCase = mockk(),
+        val viewModel: DetailsViewModel = DetailsViewModel(
             savedStateHandle = SavedStateHandle().apply {
                 set(PicturesDestination.tweetArg, tweetId)
-                set(PicturesDestination.pictureArg, pictureId)
             },
             getTweetUseCase = getTweetUseCase,
+            getCommentsUseCase = getCommentsUseCase,
         )
     )
 }

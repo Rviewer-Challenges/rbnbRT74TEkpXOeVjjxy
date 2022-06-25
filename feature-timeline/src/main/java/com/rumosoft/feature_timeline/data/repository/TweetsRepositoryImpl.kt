@@ -12,6 +12,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import javax.inject.Inject
+import kotlin.random.Random
 
 class TweetsRepositoryImpl @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher
@@ -27,6 +28,12 @@ class TweetsRepositoryImpl @Inject constructor(
             fakeTweetData().first {
                 it.id == tweetId
             }
+        }
+    }
+
+    override suspend fun fetchComments(tweetId: Long): List<Tweet> {
+        return withContext(dispatcher) {
+            fakeCommentsData(tweetId)
         }
     }
 
@@ -212,6 +219,24 @@ class TweetsRepositoryImpl @Inject constructor(
             )
         ),
     )
+
+    private fun fakeCommentsData(tweetId: Long): List<Tweet> {
+        return (1..tweetId).map {
+            Tweet(
+                id = (100 + it).toLong(),
+                username = "Comment $it",
+                nickname = "nickname $it",
+                profileImageUrl = "",
+                message = "comment $it",
+                numComments = Random.nextInt(0, 10).toLong(),
+                numRetweets = Random.nextInt(0, 10).toLong(),
+                numQuoteTweets = Random.nextInt(0, 10).toLong(),
+                numLikes = Random.nextInt(0, 10).toLong(),
+                posted = dateTimeToInstant("2021-05-0$it", "0$it:15"),
+                verified = Random.nextBoolean(),
+            )
+        }
+    }
 
     private fun dateTimeToInstant(strDate: String, strTime: String): Instant {
         val strDateTime = strDate + "T" + strTime

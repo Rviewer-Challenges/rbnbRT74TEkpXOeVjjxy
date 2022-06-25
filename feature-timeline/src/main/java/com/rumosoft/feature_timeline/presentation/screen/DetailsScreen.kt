@@ -29,7 +29,7 @@ fun DetailsRoute(
     onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
     LaunchedEffect(Unit) {
-        viewModel.retrieveDetails()
+        viewModel.retrieveTweetDetails()
     }
     val uiState by viewModel.uiState.collectAsState()
     DetailsScreen(
