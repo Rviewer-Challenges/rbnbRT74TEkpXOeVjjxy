@@ -109,7 +109,7 @@ fun OneImageTweetLayout(
                 modifier = Modifier.fillMaxWidth(),
                 onPictureSelected = onPictureSelected,
             )
-            if (isGifImage(image)) {
+            if (isGifImage(image) || isVideoImage(image)) {
                 Image(
                     painter = painterResource(id = R.drawable.img_play),
                     contentDescription = null,

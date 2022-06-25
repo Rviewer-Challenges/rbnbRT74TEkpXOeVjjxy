@@ -11,6 +11,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import java.time.Instant
 
 @ExperimentalCoroutinesApi
 @ExtendWith(TestCoroutineExtension::class)
@@ -48,8 +49,9 @@ internal class PicturesViewModelTest {
             message = "message",
             numComments = 1,
             numRetweets = 2,
+            numQuoteTweets = 1,
             numLikes = 3,
-            posted = "elapsedtime",
+            posted = Instant.now(),
             verified = false,
             images = listOf()
         )
