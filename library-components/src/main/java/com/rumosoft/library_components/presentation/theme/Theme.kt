@@ -31,9 +31,9 @@ private val LightColorPalette = lightColors(
     secondaryVariant = Gallery,
     surface = White,
     onPrimary = Black,
-    onSecondary = Black,
+    onSecondary = LightGray,
     onSurface = Black,
-    onBackground = ShuttleGray,
+    onBackground = DarkGray,
 )
 
 @Composable

@@ -1,6 +1,8 @@
 package com.rumosoft.library_components.components
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,15 +41,20 @@ fun TweetTimeline(
     onTweetSelected: (Long) -> Unit = { _ -> },
     onPictureSelected: (Long, Long) -> Unit = { _, _ -> },
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
     val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onTweetSelected(tweetId) }
+            .clickable(
+                interactionSource = interactionSource,
+                indication = LocalIndication.current,
+                onClick = { onTweetSelected(tweetId) },
+            )
             .padding(
                 start = TwitterMirroringTheme.paddings.medium,
                 top = TwitterMirroringTheme.paddings.medium
-            )
+            ),
     ) {
         ProfileImage(
             profileImageUrl = profileImageUrl,
@@ -68,8 +75,9 @@ fun TweetTimeline(
             TweetContent(
                 tweetId = tweetId,
                 message = message,
-                modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium),
                 images = images,
+                modifier = Modifier.padding(start = TwitterMirroringTheme.paddings.medium),
+                interactionSource = interactionSource,
                 onTweetSelected = onTweetSelected,
                 onHighlightedTextClick = { text, tag ->
                     when (tag) {

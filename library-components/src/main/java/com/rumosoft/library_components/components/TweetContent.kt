@@ -1,12 +1,18 @@
 package com.rumosoft.library_components.components
 
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -20,6 +26,7 @@ import com.rumosoft.library_components.R
 import com.rumosoft.library_components.components.model.ImageUI
 import com.rumosoft.library_components.components.sampledata.SampleTweetData
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
+import kotlinx.coroutines.launch
 
 
 private const val MAX_TWEET_LENGTH = 280
@@ -38,6 +45,7 @@ fun TweetContent(
     message: String,
     images: List<ImageUI>,
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
     tweetId: Long = 1L,
     onHighlightedTextClick: (String, String) -> Unit = { _, _ -> },
     onTweetSelected: (Long) -> Unit = { _ -> },
@@ -47,6 +55,7 @@ fun TweetContent(
         TweetContentText(
             tweetId = tweetId,
             message = message,
+            interactionSource = interactionSource,
             modifier = modifier,
             onTweetSelected = onTweetSelected,
             onHighlightedTextClick = onHighlightedTextClick
@@ -63,13 +72,14 @@ private fun TweetContentText(
     tweetId: Long,
     message: String,
     modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource,
     onTweetSelected: (Long) -> Unit = { _ -> },
     onHighlightedTextClick: (String, String) -> Unit,
 ) {
     val highlightColor = TwitterMirroringTheme.extraColors.blue
     val bodyString = remember { getAnnotatedBodyString(message = message, highlightColor = highlightColor) }
     val textTweetContentDescription = stringResource(R.string.tweet_text)
-
+    val scope = rememberCoroutineScope()
     ClickableText(
         text = bodyString,
         style = TwitterMirroringTheme.typography.body1,
@@ -90,8 +100,14 @@ private fun TweetContentText(
                     consumed = true
                 }
             }
-            if (!consumed)
+            if (!consumed) {
                 onTweetSelected(tweetId)
+                scope.launch {
+                    val pressInteraction = PressInteraction.Press(Offset.Zero)
+                    interactionSource.emit(pressInteraction)
+                    interactionSource.emit(PressInteraction.Release(pressInteraction))
+                }
+            }
         },
     )
 }
@@ -187,7 +203,7 @@ private fun isUrl(highlight: String) = URL_REGEX.toRegex().matches(highlight)
 private fun isMention(highlight: String) = MENTIONS_REGEX.toRegex().matches(highlight)
 
 private fun stripWebPrefix(highlight: String) =
-    highlight.replace("http[s]?://".toRegex(), "")
+    highlight.replace("https?://".toRegex(), "")
 
 @Preview(
     showBackground = true
