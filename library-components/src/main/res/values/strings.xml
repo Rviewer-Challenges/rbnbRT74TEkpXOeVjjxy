@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="comments">Comments</string>
+    <string name="retweets">Retweets</string>
+    <string name="likes">Likes</string>
+    <string name="shares">Shares</string>
+    <string name="twitter">Twitter</string>
+    <string name="tweet_text">Tweet text</string>
+    <string name="tweet_images">Tweet images</string>
+    <string name="tweet_image">Tweet image</string>
+    <string name="gif_image">GIF Image</string>
+    <string name="back">Back</string>
+    <string name="video_image">Video</string>
+    <string name="quote_tweets">Quote Tweets</string>
+</resources>
