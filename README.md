@@ -33,7 +33,7 @@ the app, they are used in feature-timeline for now but they could be used in oth
 
 ## Screenshots & Youtube video
 
-![Youtube Video](https://youtu.be/mh86Nrg7JLg)
+Youtube Video: https://youtu.be/mh86Nrg7JLg
 
 ![Timeline 1](/screenshots/timeline1.png "Timeline 1")
 ![Timeline 2](/screenshots/timeline2.png "Timeline 2")
