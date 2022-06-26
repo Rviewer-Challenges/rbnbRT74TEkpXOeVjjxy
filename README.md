@@ -12,23 +12,28 @@ It accepts tweets with just text as well as one of the following media:
 - 1 gif image.
 - 1 video.
 
+The images are zoomable and the gif and video playable.
+There is also the possibility to see the tweet details with some fake comments.
+
 ## APK
 
 The apk of this app can be downloaded from:
-https://drive.google.com/file/d/1dYobyo4ttoL7mMV6_-SFAoMcRXsXYvh2/view?usp=sharing
+https://drive.google.com/file/d/1Xts0ELdy7KHo-rvtYdEaUPfGke34ntHK/view?usp=sharing
 
 ## Modules
 I tried to create different modules so that the app is about twitter-mirroring and feature-timeline
 is just a feature of it so there could be extra features done.
 
 These modules are:
-- feature-timeline: Contains the composables to show the twitter timeline and the image details, 
-the data is fake and provided by the repo itself.
+- feature-timeline: Contains the composables to show the twitter timeline, the image details 
+and the tweet details, the data is fake and provided by the repo itself.
 - library-components: it's idea is to have components that can be reused in different features of 
 the app, they are used in feature-timeline for now but they could be used in other future features 
 (search...).
 
-## Screenshots
+## Screenshots & Youtube video
+
+![Youtube Video](https://youtu.be/mh86Nrg7JLg)
 
 ![Timeline 1](/screenshots/timeline1.png "Timeline 1")
 ![Timeline 2](/screenshots/timeline2.png "Timeline 2")
