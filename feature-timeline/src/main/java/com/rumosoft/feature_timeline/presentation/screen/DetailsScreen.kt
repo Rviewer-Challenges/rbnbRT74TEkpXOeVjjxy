@@ -8,12 +8,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rumosoft.feature_timeline.R
 import com.rumosoft.feature_timeline.presentation.screen.state.BuildUI
 import com.rumosoft.feature_timeline.presentation.viewmodel.DetailsViewModel
@@ -22,6 +23,7 @@ import com.rumosoft.library_components.components.BackNavigationButton
 import com.rumosoft.library_components.components.TwitterTopAppBar
 import com.rumosoft.library_components.presentation.theme.TwitterMirroringTheme
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun DetailsRoute(
     viewModel: DetailsViewModel = hiltViewModel(),
@@ -31,7 +33,7 @@ fun DetailsRoute(
     LaunchedEffect(Unit) {
         viewModel.retrieveTweetDetails()
     }
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     DetailsScreen(
         uiState = uiState,
         onBackClick = onBackClick,
